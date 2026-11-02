@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { SiteProvider } from "./content/SiteContent";
 import "./styles.css";
+import "./work-avatar-circles.css";
 import "./studio.css";
 import "./projects.css";
 import "./content/content.css";
