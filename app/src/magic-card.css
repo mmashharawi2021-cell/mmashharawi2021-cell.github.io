@@ -28,20 +28,16 @@
  padding:2px;
  pointer-events:none;
  opacity:0;
- background:conic-gradient(from 90deg at var(--magic-x) var(--magic-y),
-   var(--magic-gradient-from),var(--magic-gradient-to),
-   var(--magic-gradient-from));
+ background:radial-gradient(
+   var(--magic-gradient-size) circle at var(--magic-x) var(--magic-y),
+   var(--magic-gradient-from) 0%,
+   var(--magic-gradient-to) 42%,
+   transparent 100%
+ );
  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
  -webkit-mask-composite:xor;
  mask:linear-gradient(#000 0 0) content-box exclude;
  transition:opacity 200ms ease;
-}
-/* Spotlight controls where the colorful border is illuminated, not the card interior. */
-@supports (mask-image: radial-gradient(white, transparent)){
- .magic-card::before{
-   mask-image:linear-gradient(#000 0 0),linear-gradient(#000 0 0);
-   mask-composite:exclude;
- }
 }
 .magic-card::after{content:none!important;}
 .magic-card:is(:hover,:focus-within)::before{opacity:1;}
