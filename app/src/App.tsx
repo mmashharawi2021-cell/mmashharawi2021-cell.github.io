@@ -10,6 +10,7 @@ import { useHoverPill } from "./HoverPill";
 import { TechBadge } from "./TechBadge";
 import { FloatingWords } from "./FloatingWords";
 import { TypingAnimation } from "./TypingAnimation";
+import { DiaTextReveal } from "./DiaTextReveal";
 import {
   ArrowDown,
   ArrowLeft,
@@ -453,6 +454,17 @@ export default function App() {
             <div key={section.id}>{sections[section.id]}</div>
           ))}
       </main>
+      <section className="container closing-statement" aria-label="خاتمة">
+        <p>
+          <DiaTextReveal
+            text={c.footer.note}
+            colors={["#f97316", "#eab308", "#22c55e", "#3b82f6", "#a855f7"]}
+            delay={0.35}
+            duration={2.4}
+            direction="rtl"
+          />
+        </p>
+      </section>
       <footer className="container footer">
         <a className="brand" href="#home">
           <span className="brand-symbol portfolio-brand-mark">
@@ -460,7 +472,6 @@ export default function App() {
           </span>
           <span>{c.identity.name}</span>
         </a>
-        <span>{c.footer.note}</span>
         <nav className="footer-social" aria-label="حسابات التواصل الاجتماعي أسفل الموقع">
           {socialLinks.map(({ key, label, href, Icon }) => (
             <a

@@ -1,0 +1,22 @@
+.dia-text-reveal {
+  display: inline-block;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-size: 100% 100%;
+  /* Room for Arabic ascenders/descenders inside the clipped background. */
+  padding-block: 0.12em;
+  line-height: 1.3;
+}
+.closing-statement {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding-block: clamp(48px, 9vw, 96px);
+}
+.closing-statement p { margin: 0; }
+.closing-statement .dia-text-reveal {
+  font-size: clamp(26px, 5.4vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
