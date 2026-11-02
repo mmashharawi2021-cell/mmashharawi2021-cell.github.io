@@ -1,31 +1,47 @@
-/* Cursor-following Magic Card: replaces the former spinning border glow. */
-:root[data-theme="light"] { --magic-gradient: #d9d9d955; --magic-edge: #6d91bc44; }
-:root[data-theme="dark"] { --magic-gradient: #60697755; --magic-edge: #a4bbdb55; }
-.magic-card { position: relative; isolation: isolate; --magic-x: 50%; --magic-y: 50%; }
-.magic-card::after {
-  content: ""; position: absolute; inset: 0; z-index: 2;
-  border-radius: inherit; pointer-events: none; opacity: 0;
-  background: radial-gradient(300px circle at var(--magic-x) var(--magic-y),
-    var(--magic-gradient), transparent 75%);
-  transition: opacity 240ms ease;
+/* Magic Card: theme-accent spotlight ONLY on the card border. */
+.magic-card {
+  position: relative;
+  isolation: isolate;
+  --magic-x: 50%;
+  --magic-y: 50%;
 }
+/* A transparent middle preserves every image, text and card background. */
 .magic-card::before {
-  content: ""; position: absolute; inset: 0; z-index: 3; border-radius: inherit;
-  pointer-events: none; opacity: 0; padding: 1px;
-  background: radial-gradient(210px circle at var(--magic-x) var(--magic-y),
-    var(--magic-edge), transparent 80%);
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  padding: 2px;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    220px circle at var(--magic-x) var(--magic-y),
+    var(--site-accent, var(--accent)) 0%,
+    color-mix(in srgb, var(--site-accent, var(--accent)) 65%, transparent) 28%,
+    transparent 76%
+  );
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box exclude;
-  transition: opacity 240ms ease;
+  transition: opacity 180ms ease;
 }
-.magic-card:hover::before,.magic-card:hover::after,.magic-card:focus-within::before,.magic-card:focus-within::after {opacity:1}
-.magic-card > * {position:relative;z-index:1}
-.studio-projects .project-card.magic-card:hover { transform: none; box-shadow: 0 12px 34px #18254312; }
-.studio-projects .project-card.magic-card { border-color: var(--line); }
+.magic-card::after { content: none !important; }
+.magic-card:hover::before,
+.magic-card:focus-within::before { opacity: 1; }
+.magic-card > * { position: relative; z-index: 1; }
+.studio-projects .project-card.magic-card {
+  border-color: var(--line);
+}
+.studio-projects .project-card.magic-card:hover {
+  transform: none;
+  box-shadow: 0 12px 34px #18254312;
+}
 .service.magic-card { border-radius: 12px; }
-.process-grid .magic-card {border-radius:12px;padding-inline:12px; }
-@media (hover:none), (prefers-reduced-motion: reduce) {
- .magic-card::before,.magic-card::after { transition:none }
- @media (hover:none) { .magic-card::before,.magic-card::after {display:none} }
+.process-grid .magic-card { border-radius: 12px; padding-inline: 12px; }
+@media (hover: none) {
+  .magic-card::before { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .magic-card::before { transition: none; }
 }
