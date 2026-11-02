@@ -11,16 +11,12 @@ const organizations = [
     "shortName": "GEDCO"
   },
   {
-    "name": "وزارة الزراعة الفلسطينية",
-    "shortName": "MOA"
+    "name": "سلطة جودة البيئة (شعار فلسطين مؤقتًا)",
+    "shortName": "EQA"
   },
   {
     "name": "الكلية الجامعية للعلوم التطبيقية (UCAS)",
     "shortName": "UCAS"
-  },
-  {
-    "name": "سلطة جودة البيئة",
-    "shortName": "EQA"
   },
   {
     "name": "مركز خبراء التطوير",
@@ -29,6 +25,10 @@ const organizations = [
   {
     "name": "مركز الموارد العمالية (LRC) – تطوع",
     "shortName": "LRC"
+  },
+  {
+    "name": "وزارة الزراعة الفلسطينية",
+    "shortName": "MOA"
   }
 ];
 
