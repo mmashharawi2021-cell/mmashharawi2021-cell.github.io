@@ -9,6 +9,7 @@ import ProgressiveImage from "./ProgressiveImage";
 import { useHoverPill } from "./HoverPill";
 import { TechBadge } from "./TechBadge";
 import { FloatingWords } from "./FloatingWords";
+import { TypingAnimation } from "./TypingAnimation";
 import {
   ArrowDown,
   ArrowLeft,
@@ -111,7 +112,7 @@ export default function App() {
           <p className="hero-name">{c.identity.name}</p>
           <span className="eyebrow">
             <span className="status-dot" />
-            {c.hero.badge}
+            <TypingAnimation words={c.hero.badgeWords} loop />
           </span>
           <h1 className="hero-swap">
             <span className="hero-line">{c.hero.title}</span>

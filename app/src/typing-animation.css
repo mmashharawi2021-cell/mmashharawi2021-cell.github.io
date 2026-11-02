@@ -1,0 +1,25 @@
+.typing-animation {
+  display: inline-grid;
+  align-items: center;
+}
+.typing-animation__sizer,
+.typing-animation__text {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  /* Anchor every word (Arabic or English) on the page's start side, next to the status dot. */
+  justify-self: start;
+}
+.typing-animation__sizer { visibility: hidden; }
+.typing-animation__cursor { display: inline-block; }
+.typing-animation__cursor.is-blinking { animation: typing-blink-cursor 1.2s step-end infinite; }
+@keyframes typing-blink-cursor {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.typing-animation .sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .typing-animation__cursor.is-blinking { animation: none; }
+}
