@@ -300,29 +300,16 @@ try {
     } finally { await context.close(); }
   });
 
-  await check("Magic Card pointer spotlight follows mouse without legacy glow", async () => {
-    const { context, page, errors } = await launchViewport(1280, 800);
+  await check("Offscreen card glow sampling waits until the card approaches the viewport", async () => {
+    const { context, page, errors } = await launchViewport(390, 700);
     try {
-      const card = page.locator(".project-card").first();
-      assert.equal(await card.locator(".card-glow").count(), 0,
-        "Legacy spinning card glow must be replaced");
-      assert.ok(await card.evaluate(el => el.classList.contains("magic-card")),
-        "Project card should have the new Magic Card effect");
-      await card.scrollIntoViewIfNeeded();
-      const rect = await card.boundingBox();
-      assert.ok(rect, "Project card must have a bounding box");
-      await page.mouse.move(rect.x + rect.width * 0.25, rect.y + rect.height * 0.4);
-      await page.waitForFunction(() => {
-        const card = document.querySelector(".project-card.magic-card");
-        return card && card.style.getPropertyValue("--magic-x").endsWith("px");
-      });
-      const firstX = await card.evaluate(el => parseFloat(el.style.getPropertyValue("--magic-x")));
-      await page.mouse.move(rect.x + rect.width * 0.75, rect.y + rect.height * 0.4);
-      const secondX = await card.evaluate(el => parseFloat(el.style.getPropertyValue("--magic-x")));
-      assert.ok(secondX > firstX + rect.width * 0.25,
-        "Magic Card spotlight should follow mouse movement");
-      assert.equal(await page.locator(".service.magic-card").count(), 6,
-        "Service cards should use Magic Card");
+      const last = page.locator(".project-card").last();
+      const below = await last.evaluate(el => el.getBoundingClientRect().top > innerHeight + 200);
+      assert.ok(below, "Last project should start beyond the sampling threshold");
+      assert.equal(await last.locator(".card-glow.is-ready").count(), 0,
+        "Do not decode offscreen card images just to compute glow");
+      await last.scrollIntoViewIfNeeded();
+      await last.locator(".card-glow.is-ready").waitFor({timeout:10000});
       assert.deepEqual(errors, []);
     } finally { await context.close(); }
   });
