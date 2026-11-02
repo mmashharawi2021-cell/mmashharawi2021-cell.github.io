@@ -6,8 +6,8 @@
 .typing-animation__text {
   grid-area: 1 / 1;
   white-space: nowrap;
-  /* Anchor every word (Arabic or English) on the page's start side, next to the status dot. */
-  justify-self: start;
+  /* Every word (Arabic or English) grows from and shrinks to the centre of the box. */
+  justify-self: center;
 }
 .typing-animation__sizer { visibility: hidden; }
 .typing-animation__cursor { display: inline-block; }
