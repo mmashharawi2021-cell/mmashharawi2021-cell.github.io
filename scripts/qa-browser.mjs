@@ -300,16 +300,29 @@ try {
     } finally { await context.close(); }
   });
 
-  await check("Offscreen card glow sampling waits until the card approaches the viewport", async () => {
-    const { context, page, errors } = await launchViewport(390, 700);
+  await check("Magic Card follows pointer with inner and border gradients", async () => {
+    const { context, page, errors } = await launchViewport(1280, 800);
     try {
-      const last = page.locator(".project-card").last();
-      const below = await last.evaluate(el => el.getBoundingClientRect().top > innerHeight + 200);
-      assert.ok(below, "Last project should start beyond the sampling threshold");
-      assert.equal(await last.locator(".card-glow.is-ready").count(), 0,
-        "Do not decode offscreen card images just to compute glow");
-      await last.scrollIntoViewIfNeeded();
-      await last.locator(".card-glow.is-ready").waitFor({timeout:10000});
+      const card = page.locator(".project-card").first();
+      await card.scrollIntoViewIfNeeded();
+      assert.equal(await card.locator(".card-glow").count(), 0);
+      assert.ok(await card.evaluate(el => el.classList.contains("magic-card")));
+      const box = await card.boundingBox();
+      assert.ok(box);
+      await page.mouse.move(box.x + box.width * .2, box.y + box.height * .3);
+      await page.waitForFunction(() => document.querySelector(".project-card.magic-card")
+        ?.style.getPropertyValue("--magic-x").endsWith("px"));
+      const first = await card.evaluate(el => parseFloat(el.style.getPropertyValue("--magic-x")));
+      await page.mouse.move(box.x + box.width * .8, box.y + box.height * .3);
+      const second = await card.evaluate(el => parseFloat(el.style.getPropertyValue("--magic-x")));
+      assert.ok(second > first + box.width * .4);
+      const layers = await card.evaluate(el => ({
+        inside: getComputedStyle(el, "::before").backgroundImage,
+        border: getComputedStyle(el, "::after").backgroundImage,
+      }));
+      assert.match(layers.inside, /radial-gradient/);
+      assert.match(layers.border, /radial-gradient/);
+      assert.equal(await page.locator(".service.magic-card").count(), 6);
       assert.deepEqual(errors, []);
     } finally { await context.close(); }
   });
