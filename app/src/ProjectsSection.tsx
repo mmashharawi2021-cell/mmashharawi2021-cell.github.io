@@ -2,7 +2,7 @@
 import { ArrowUpLeft, Plus } from "lucide-react";
 import ProgressiveImage from "./ProgressiveImage";
 import { useHoverPill } from "./HoverPill";
-import { CardGlow } from "./CardGlow";
+import { trackMagicCard } from "./magic-card";
 import { assetUrl, useSite, type Project } from "./content/SiteContent";
 
 const filters = ["الكل", "GIS والخرائط", "أنظمة الويب", "مواقع ومنصات"];
@@ -76,11 +76,11 @@ export default function ProjectsSection({
       <div className="projects-grid" key={filter}>
         {visible.map((project, index) => (
           <article
-            className={`project-card ${filter === "الكل" && index === 0 ? "featured" : ""}`}
+            onPointerMove={trackMagicCard}
+            className={`project-card magic-card ${filter === "الكل" && index === 0 ? "featured" : ""}`}
             key={project.id}
             style={{ animationDelay: `${index * 45}ms` }}
           >
-            <CardGlow src={assetUrl(project.image)} />
             <button
               className="project-preview"
               onClick={() => onSelect(project)}
