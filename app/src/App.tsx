@@ -1,5 +1,6 @@
 ﻿import { useCallback, useEffect, useRef, useState } from "react";
 import ReferenceIntro from "./ReferenceIntro";
+import WorkAvatarCircles from "./WorkAvatarCircles";
 import { revealThemeFromButton } from "./theme-reveal";
 import { approvedLogoSrc } from "./brandAsset";
 import ProjectsSection from "./ProjectsSection";
@@ -133,6 +134,7 @@ export default function App() {
               <ArrowUpLeft size={18} />
             </a>
           </div>
+          <WorkAvatarCircles />
           <div className="hero-specialties">
             {c.hero.specialties.map((text, index) => (
               <span key={index}>{text}</span>
