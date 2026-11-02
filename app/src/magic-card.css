@@ -1,47 +1,59 @@
-/* Magic Card: theme-accent spotlight ONLY on the card border. */
-.magic-card {
-  position: relative;
-  isolation: isolate;
-  --magic-x: 50%;
-  --magic-y: 50%;
+/* Magic UI Magic Card gradient border, adapted for the portfolio's Vite setup.
+   Cursor-following border, with Magic UI's gradientFrom/gradientTo palette.
+   No interior spotlight: preserve project artwork and card backgrounds. */
+.magic-card{
+ position:relative;
+ isolation:isolate;
+ --magic-x:50%;
+ --magic-y:50%;
+ --magic-gradient-size:200px;
+ --magic-gradient-from:#9E7AFF;
+ --magic-gradient-to:#FE8BBB;
 }
-/* A transparent middle preserves every image, text and card background. */
-.magic-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  border-radius: inherit;
-  padding: 2px;
-  pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(
-    220px circle at var(--magic-x) var(--magic-y),
-    var(--site-accent, var(--accent)) 0%,
-    color-mix(in srgb, var(--site-accent, var(--accent)) 65%, transparent) 28%,
-    transparent 76%
-  );
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box exclude;
-  transition: opacity 180ms ease;
+/* Palette coordinated with the portfolio's blue/purple/pink hero gradient. */
+:root[data-theme="light"] .magic-card{
+ --magic-gradient-from:#2563eb;
+ --magic-gradient-to:#db2777;
 }
-.magic-card::after { content: none !important; }
-.magic-card:hover::before,
-.magic-card:focus-within::before { opacity: 1; }
-.magic-card > * { position: relative; z-index: 1; }
-.studio-projects .project-card.magic-card {
-  border-color: var(--line);
+:root[data-theme="dark"] .magic-card{
+ --magic-gradient-from:#60a5fa;
+ --magic-gradient-to:#c084fc;
 }
-.studio-projects .project-card.magic-card:hover {
-  transform: none;
-  box-shadow: 0 12px 34px #18254312;
+.magic-card::before{
+ content:"";
+ position:absolute;
+ inset:0;
+ z-index:4;
+ border-radius:inherit;
+ padding:2px;
+ pointer-events:none;
+ opacity:0;
+ background:conic-gradient(from 90deg at var(--magic-x) var(--magic-y),
+   var(--magic-gradient-from),var(--magic-gradient-to),
+   var(--magic-gradient-from));
+ -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+ -webkit-mask-composite:xor;
+ mask:linear-gradient(#000 0 0) content-box exclude;
+ transition:opacity 200ms ease;
 }
-.service.magic-card { border-radius: 12px; }
-.process-grid .magic-card { border-radius: 12px; padding-inline: 12px; }
-@media (hover: none) {
-  .magic-card::before { display: none; }
+/* Spotlight controls where the colorful border is illuminated, not the card interior. */
+@supports (mask-image: radial-gradient(white, transparent)){
+ .magic-card::before{
+   mask-image:linear-gradient(#000 0 0),linear-gradient(#000 0 0);
+   mask-composite:exclude;
+ }
 }
-@media (prefers-reduced-motion: reduce) {
-  .magic-card::before { transition: none; }
+.magic-card::after{content:none!important;}
+.magic-card:is(:hover,:focus-within)::before{opacity:1;}
+.magic-card>*{position:relative;z-index:1;}
+.studio-projects .project-card.magic-card{
+ border-color:var(--line);
 }
+.studio-projects .project-card.magic-card:hover{
+ transform:none;
+ box-shadow:0 12px 34px #18254312;
+}
+.service.magic-card{border-radius:12px;}
+.process-grid .magic-card{border-radius:12px;padding-inline:12px;}
+@media(hover:none){.magic-card::before{display:none;}}
+@media(prefers-reduced-motion:reduce){.magic-card::before{transition:none;}}
