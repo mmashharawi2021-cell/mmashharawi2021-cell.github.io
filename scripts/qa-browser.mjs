@@ -321,7 +321,7 @@ try {
       const secondX = await card.evaluate(el => parseFloat(el.style.getPropertyValue("--magic-x")));
       assert.ok(secondX > firstX + rect.width * 0.25,
         "Magic Card spotlight should follow mouse movement");
-      assert.equal(await page.locator(".service.magic-card").count(), 3,
+      assert.equal(await page.locator(".service.magic-card").count(), 6,
         "Service cards should use Magic Card");
       assert.deepEqual(errors, []);
     } finally { await context.close(); }
