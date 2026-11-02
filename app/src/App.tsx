@@ -1,6 +1,5 @@
 ﻿import { useCallback, useEffect, useRef, useState } from "react";
 import ReferenceIntro from "./ReferenceIntro";
-import { trackMagicCard } from "./video-magic-card";
 import WorkAvatarCircles from "./WorkAvatarCircles";
 import { revealThemeFromButton } from "./theme-reveal";
 import { approvedLogoSrc } from "./brandAsset";
@@ -225,7 +224,7 @@ export default function App() {
             {c.services.map((service, index) => {
               const Icon = icons[service.icon as keyof typeof icons] ?? Braces;
               return (
-                <article className="service magic-card" onPointerMove={trackMagicCard} key={service.id}>
+                <article className="service" key={service.id}>
                   <div className="service-top">
                     <Icon size={26} />
                     <span>{String(index + 1).padStart(2, "0")}</span>
@@ -276,7 +275,7 @@ export default function App() {
         <span className="eyebrow">{c.process.label}</span>
         <div className="process-grid">
           {c.process.steps.map((step, index) => (
-            <article className="magic-card" onPointerMove={trackMagicCard} key={step.id}>
+            <article key={step.id}>
               <span>{String(index + 1).padStart(2, "0")}</span>
               <h3>{step.title}</h3>
               <p>{step.description}</p>
