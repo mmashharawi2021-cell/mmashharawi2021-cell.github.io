@@ -1,0 +1,65 @@
+/* Design polish layer: typography, scrolling, feedback and accessibility. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scrollbar-color: color-mix(in srgb, var(--accent) 55%, transparent) transparent;
+}
+body { -webkit-tap-highlight-color: transparent; }
+
+h1, h2, h3 { text-wrap: balance; }
+p, li { text-wrap: pretty; }
+
+section[id], [id].container { scroll-margin-top: 88px; }
+
+img { image-rendering: auto; }
+
+/* Themed scrollbar (WebKit/Blink) */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--accent) 45%, transparent);
+  border: 3px solid var(--bg);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* Tactile press feedback */
+button, a[role="button"], .button, .btn {
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+button:active, a[role="button"]:active, .button:active, .btn:active { transform: scale(0.97); }
+
+/* Reading progress bar driven by scroll timeline (progressive enhancement) */
+@supports (animation-timeline: scroll()) {
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 3px;
+    z-index: 9999;
+    pointer-events: none;
+    background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 50%, #fff));
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+    animation: polish-progress linear both;
+    animation-timeline: scroll(root);
+  }
+  [dir="rtl"] body::before { transform-origin: 100% 50%; }
+}
+@keyframes polish-progress { to { transform: scaleX(1); } }
+
+@media (max-width: 640px) {
+  section[id], [id].container { scroll-margin-top: 72px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  body::before { display: none; }
+}
