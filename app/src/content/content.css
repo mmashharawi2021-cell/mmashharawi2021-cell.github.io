@@ -1,6 +1,22 @@
 .site-content {
   --accent: var(--site-accent, #0066cc);
 }
+/* Dark theme: small accent text uses a lighter shade of the brand blue so it
+   meets WCAG AA (4.5:1) on dark surfaces. Large headings, buttons and stat
+   suffixes keep the original brand blue, which already passes for large text. */
+:root[data-theme="dark"] .site-content {
+  --accent: #3a8bf0;
+}
+:root[data-theme="dark"] .site-content h2 > span,
+:root[data-theme="dark"] .site-content .stats-grid dd .stat-suffix {
+  color: var(--site-accent, #0066cc);
+}
+:root[data-theme="dark"] .site-content .hero h1.hero-swap > .hero-line {
+  --to: var(--site-accent, #0066cc);
+}
+:root[data-theme="dark"] .site-content .hero h1.hero-swap > .hero-accent {
+  --from: var(--site-accent, #0066cc);
+}
 .site-content .button.primary {
   background: var(--site-accent, #0066cc);
   border-color: transparent;
