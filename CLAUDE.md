@@ -72,6 +72,6 @@
 
 **طبقات CSS** (تُستورد في `main.tsx`): `styles.css` (الأساس) ثم `studio.css` (الألوان والهيرو، ومتغيرات `--accent` وغيرها) ثم `projects.css` ثم البقية. `design-polish.css` فيه شريط تقدّم القراءة وشريط التمرير وتأثير الضغط وتقليل الحركة.
 
-**ملفات غير مستخدمة حاليًا:** `magic-card.css` و `magic-card.ts` و `digital-glitch-intro.css`. لا تُحذف ولا تُستخدم إلا بطلب.
+**ملفات محذوفة:** `magic-card.*` و `digital-glitch-intro.css` حُذفت بطلب المالك.
 
 **الاختبار والنشر:** يُبنى الموقع إلى `docs/`. على GitHub يعمل فحص الجودة `qa.yml` والنشر `deploy.yml` عند الرفع إلى `main`. محليًا يحتاج اختبارا `seo` و `release-static` الملف `docs/og-preview.png`، ويُولَّد في CI. اختبارات المتصفح في `scripts/qa-browser.mjs` (26 حالة).
