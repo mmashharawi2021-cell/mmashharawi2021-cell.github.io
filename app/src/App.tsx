@@ -17,6 +17,7 @@ import { initScrollReveal } from "./scroll-reveal";
 import { useActiveSection } from "./useActiveSection";
 import { ScrollWords, initScrollWords } from "./ScrollWords";
 import { initTimelineDraw } from "./timeline-draw";
+import { initPointerEffects } from "./pointer-effects";
 import {
   ArrowDown,
   ArrowLeft,
@@ -103,6 +104,7 @@ export default function App() {
   useEffect(() => initScrollReveal(), []);
   useEffect(() => initScrollWords(), []);
   useEffect(() => initTimelineDraw(), []);
+  useEffect(() => initPointerEffects(), []);
   const toggleTheme = (event: React.MouseEvent<HTMLButtonElement>) => {
     const next = mode === "dark" ? "light" : "dark";
     revealThemeFromButton(event.currentTarget, next, () => setTheme(next));

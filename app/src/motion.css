@@ -151,3 +151,37 @@
     opacity: 1;
   }
 }
+
+/* Magnetic buttons (see pointer-effects.ts): `translate` composes with the
+   buttons' own hover transform. */
+.hero .actions .button.primary,
+.header-cta {
+  transition:
+    transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.25s,
+    background 0.25s,
+    translate 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Spotlight that follows the pointer inside service cards. */
+.service.has-spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.service.has-spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--accent) 16%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.service.has-spotlight:hover::after {
+  opacity: 1;
+}
