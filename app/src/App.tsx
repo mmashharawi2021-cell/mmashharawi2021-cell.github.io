@@ -7,13 +7,13 @@ import ProjectsSection from "./ProjectsSection";
 import ProjectDialog from "./ProjectDialog";
 import ProgressiveImage from "./ProgressiveImage";
 import { useHoverPill } from "./HoverPill";
-import { TechIcon } from "./TechBadge";
+import { TechBadge } from "./TechBadge";
 import { FloatingWords } from "./FloatingWords";
 import { TypingAnimation } from "./TypingAnimation";
 import { DiaTextReveal } from "./DiaTextReveal";
 import { NumberTicker } from "./NumberTicker";
 import { NeonGradientCard } from "./magicui/NeonGradientCard";
-import { OrbitingCircles } from "./magicui/OrbitingCircles";
+import { Marquee } from "./magicui/Marquee";
 import cvData from "./cv/data.json";
 import { initScrollReveal } from "./scroll-reveal";
 import { useActiveSection } from "./useActiveSection";
@@ -248,19 +248,12 @@ export default function App() {
     expertise: (
       <div className="expertise-strip">
         <div className="container">
-          <div className="mui-orbit" dir="ltr" role="list" aria-label={c.expertise.label}>
-            <span className="mui-orbit__center" aria-hidden="true">{c.expertise.label}</span>
-            <OrbitingCircles iconSize={46} radius={150}>
-              {c.expertise.items.slice(0, 3).map((item) => (
-                <TechIcon key={item} name={item} />
-              ))}
-            </OrbitingCircles>
-            <OrbitingCircles iconSize={38} radius={90} reverse speed={2}>
-              {c.expertise.items.slice(3).map((item) => (
-                <TechIcon key={item} name={item} />
-              ))}
-            </OrbitingCircles>
-          </div>
+          <span>{c.expertise.label}</span>
+          <Marquee className="expertise-marquee" duration="28s" gap="44px" repeat={4} label={c.expertise.label}>
+            {c.expertise.items.map((item, index) => (
+              <TechBadge key={index} name={item} />
+            ))}
+          </Marquee>
         </div>
       </div>
     ),
@@ -378,7 +371,7 @@ export default function App() {
             </a>
             <nav className="contact-social" aria-label="حسابات التواصل الاجتماعي">
               {socialLinks.map(({ key, label, href, Icon }) => (
-                <a key={key} href={href} target="_blank" rel="noopener noreferrer">
+                <a key={key} href={href} target="_blank" rel="noopener noreferrer" data-brand={key}>
                   <Icon size={18} aria-hidden="true" />
                   {label}
                 </a>
@@ -557,6 +550,7 @@ export default function App() {
           {socialLinks.map(({ key, label, href, Icon }) => (
             <a
               key={key}
+              data-brand={key}
               href={href}
               aria-label={label}
               title={label}

@@ -186,95 +186,6 @@
   line-height: 1.7;
 }
 
-/* ---- Orbiting Circles (technologies) ---- */
-.mui-orbit {
-  position: relative;
-  height: 360px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.mui-orbit__path {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-.mui-orbit__path circle {
-  stroke: var(--line);
-  stroke-width: 1;
-}
-.mui-orbit__item {
-  position: absolute;
-  display: flex;
-  width: var(--icon-size);
-  height: var(--icon-size);
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transform: translateZ(0);
-  animation: orbit calc(var(--duration) * 1s) linear infinite;
-}
-.mui-orbit__item.is-reverse {
-  animation-direction: reverse;
-}
-@keyframes orbit {
-  0% {
-    transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
-  }
-  100% {
-    transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
-  }
-}
-.expertise-strip .tech-icon,
-.tech-icon {
-  font-size: 12px;
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  color: var(--brand, var(--text));
-  box-shadow: 0 6px 18px #0003;
-}
-.tech-icon svg {
-  width: 55%;
-  height: 55%;
-  fill: currentColor;
-}
-/* The technologies strip now hosts the orbit, centred. */
-.expertise-strip > .container {
-  justify-content: center;
-}
-.expertise-strip .container > .mui-orbit {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 420px;
-  gap: 0;
-}
-.expertise-strip .mui-orbit__center {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text);
-  white-space: nowrap;
-}
-@media (max-width: 600px) {
-  .mui-orbit {
-    height: 380px;
-    margin-block: -20px;
-  }
-  .expertise-strip .container > .mui-orbit {
-    transform: scale(0.88);
-  }
-}
-
 @media (max-width: 600px) {
   .mui-neon__content {
     padding: 18px 14px;
@@ -285,12 +196,8 @@
   .shimmer-button__spark-before,
   .mui-marquee__track,
   .mui-neon__content::before,
-  .mui-neon__content::after,
-  .mui-orbit__item {
+  .mui-neon__content::after {
     animation: none;
-  }
-  .mui-orbit__item {
-    transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
   }
   .mui-marquee {
     flex-wrap: wrap;
@@ -298,4 +205,20 @@
   .mui-marquee__track[aria-hidden] {
     display: none;
   }
+}
+
+/* Technologies strip as an infinite marquee (original badges and label). */
+.expertise-strip .container > .expertise-marquee {
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--gap);
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  flex-wrap: nowrap;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.expertise-marquee .mui-marquee__track {
+  align-items: center;
 }

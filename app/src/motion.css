@@ -213,3 +213,99 @@
     animation: none;
   }
 }
+
+/* Stats labels: larger, with a light sweep every 5s travelling from the
+   first sentence to the last. */
+.stats-section .stat-label {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: transparent;
+  background: linear-gradient(
+      100deg,
+      var(--muted) 0 40%,
+      var(--text) 50%,
+      var(--muted) 60% 100%
+    )
+    0 0 / 300% 100% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-position: 100% 0;
+  animation: stat-label-shine 5s ease-in-out infinite;
+}
+.stats-grid > :nth-child(2) .stat-label { animation-delay: 0.35s; }
+.stats-grid > :nth-child(3) .stat-label { animation-delay: 0.7s; }
+.stats-grid > :nth-child(4) .stat-label { animation-delay: 1.05s; }
+/* RTL text: the sweep runs right to left within each sentence. */
+@keyframes stat-label-shine {
+  0% { background-position: 0 0; }
+  22%, 100% { background-position: 100% 0; }
+}
+
+/* Organisation logo tooltip that follows the pointer (see pointer-effects.ts). */
+.org-tooltip {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  padding: 7px 12px;
+  border-radius: 10px;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 8px 24px #0004;
+  opacity: 0;
+  transform: translate(-50%, 18px) scale(0.96);
+  transition: opacity 0.15s, transform 0.15s;
+}
+.org-tooltip.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 22px) scale(1);
+}
+
+/* Social links: hover in each platform's own colours. */
+.contact-social a,
+.footer-social a {
+  border-radius: 999px;
+  transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.contact-social a {
+  padding: 6px 12px;
+  margin: -6px -12px;
+}
+.contact-social a[data-brand]:hover,
+.contact-social a[data-brand]:focus-visible,
+.footer-social a[data-brand]:hover,
+.footer-social a[data-brand]:focus-visible {
+  color: #fff;
+  background: var(--brand-bg);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--brand-glow, #000) 35%, transparent);
+}
+[data-brand="linkedin"] { --brand-bg: #0a66c2; --brand-glow: #0a66c2; }
+[data-brand="facebook"] { --brand-bg: #1877f2; --brand-glow: #1877f2; }
+[data-brand="instagram"] {
+  --brand-bg: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+  --brand-glow: #d6249f;
+}
+[data-brand="tiktok"] { --brand-bg: #000; --brand-glow: #fe2c55; }
+.contact-social a[data-brand="tiktok"]:hover svg,
+.footer-social a[data-brand="tiktok"]:hover svg {
+  filter: drop-shadow(-1.5px -1px 0 #25f4ee) drop-shadow(1.5px 1px 0 #fe2c55);
+}
+[data-brand="github"] { --brand-bg: #181717; --brand-glow: #181717; }
+:root[data-theme="dark"] .contact-social a[data-brand="github"]:hover,
+:root[data-theme="dark"] .footer-social a[data-brand="github"]:hover {
+  color: #181717;
+  background: #fff;
+}
+[data-brand="whatsapp"] { --brand-bg: #25d366; --brand-glow: #25d366; }
+
+@media (prefers-reduced-motion: reduce) {
+  .stats-section .stat-label {
+    animation: none;
+    background-position: 100% 0;
+  }
+}

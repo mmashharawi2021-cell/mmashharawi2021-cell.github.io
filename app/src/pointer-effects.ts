@@ -57,6 +57,28 @@ export function initPointerEffects(): () => void {
     card.style.setProperty("--my", `${event.clientY - r.top}px`);
   };
 
+  // Organisation logos: a name tooltip that follows the pointer.
+  const tip = document.createElement("div");
+  tip.className = "org-tooltip";
+  tip.setAttribute("aria-hidden", "true");
+  document.body.appendChild(tip);
+  const tipMove = (event: PointerEvent) => {
+    const logo = (event.target as HTMLElement).closest<HTMLElement>(".org-avatar");
+    if (!logo) {
+      tip.classList.remove("is-visible");
+      return;
+    }
+    tip.textContent = logo.dataset.name ?? logo.getAttribute("aria-label") ?? "";
+    tip.style.left = `${event.clientX}px`;
+    tip.style.top = `${event.clientY}px`;
+    tip.classList.add("is-visible");
+  };
+  const tipHide = () => tip.classList.remove("is-visible");
+  const logos = document.querySelector<HTMLElement>(".work-avatar-circles");
+  logos?.addEventListener("pointermove", tipMove, { passive: true });
+  logos?.addEventListener("pointerleave", tipHide);
+  window.addEventListener("scroll", tipHide, { passive: true });
+
   if (buttons.length) {
     window.addEventListener("pointermove", move, { passive: true });
     document.addEventListener("pointerleave", leave);
@@ -66,6 +88,10 @@ export function initPointerEffects(): () => void {
     card.addEventListener("pointermove", spot, { passive: true });
   });
   return () => {
+    logos?.removeEventListener("pointermove", tipMove);
+    logos?.removeEventListener("pointerleave", tipHide);
+    window.removeEventListener("scroll", tipHide);
+    tip.remove();
     window.removeEventListener("pointermove", move);
     document.removeEventListener("pointerleave", leave);
     cancelAnimationFrame(frame);

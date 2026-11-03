@@ -37,7 +37,7 @@ export default function WorkAvatarCircles() {
  return <div className="work-avatar-circles" aria-label="الجهات التي عملت معها">
   <span className="work-avatar-title">جهات عملت معها</span>
   <Marquee className="work-avatar-marquee" pauseOnHover duration="30s" gap="0.75rem" label="شعارات الجهات والمؤسسات">
-   {organizations.map((org,index)=><span key={org.shortName} className="org-avatar" title={org.name} role="img" aria-label={org.name}>
+   {organizations.map((org,index)=><span key={org.shortName} className="org-avatar" data-name={org.name.replace(" (شعار فلسطين مؤقتًا)", "")} role="img" aria-label={org.name}>
     <span aria-hidden="true" className="org-avatar-image" style={{backgroundImage:`url("${logoStrip}")`,backgroundPosition:`${index/6*100}% 50%`}} />
    </span>)}
   </Marquee>
