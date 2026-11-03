@@ -17,6 +17,7 @@ import "./dia-text-reveal.css";
 import "./stats.css";
 import "./experience.css";
 import "./motion.css";
+import "./magicui/magicui.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

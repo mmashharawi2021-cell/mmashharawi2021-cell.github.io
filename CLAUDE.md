@@ -83,6 +83,13 @@
   - أزرار مغناطيسية وإضاءة تتبع الماوس على بطاقات الخدمات (`pointer-effects.ts`)، على الأجهزة ذات الماوس فقط.
   - شبكة إحداثيات متحركة خلف الهيرو (`.hero::before`). (نقاط المسح على معاينة UN Field أُزيلت بطلب المالك.)
 
+**مكونات Magic UI المنقولة** (`app/src/magicui/` و `magicui.css`، دون Tailwind أو motion):
+  - Shimmer Button على زر "استكشف أعمالي".
+  - Text Animate (blurInUp حسب الكلمة) على عنوان الهيرو، يبدأ بعد شاشة التحميل ثم يعود نصاً عادياً.
+  - Marquee لشعارات جهات العمل، يتوقف عند المرور.
+  - Neon Gradient Card حول أرقام الإنجاز.
+  - Orbiting Circles لأيقونات التقنيات (`TechIcon` في `TechBadge.tsx`).
+
 **طبقات CSS** (تُستورد في `main.tsx`): `styles.css` (الأساس) ثم `studio.css` (الألوان والهيرو، ومتغيرات `--accent` وغيرها) ثم `projects.css` ثم البقية. `design-polish.css` فيه شريط تقدّم القراءة وشريط التمرير وتأثير الضغط وتقليل الحركة.
 
 **ملفات محذوفة:** `magic-card.*` و `digital-glitch-intro.css` حُذفت بطلب المالك.

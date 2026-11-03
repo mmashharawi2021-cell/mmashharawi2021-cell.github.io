@@ -10,7 +10,7 @@ const SINGLE = [
   ".contact-panel",
 ];
 const GROUPS = [
-  ".stats-grid > div",
+  ".stats-grid > .stat-card",
   ".services-grid > .service",
   ".skills-list > .skill-row",
   ".experience-list > li",

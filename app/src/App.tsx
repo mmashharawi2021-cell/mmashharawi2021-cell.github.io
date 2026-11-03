@@ -7,11 +7,14 @@ import ProjectsSection from "./ProjectsSection";
 import ProjectDialog from "./ProjectDialog";
 import ProgressiveImage from "./ProgressiveImage";
 import { useHoverPill } from "./HoverPill";
-import { TechBadge } from "./TechBadge";
+import { TechIcon } from "./TechBadge";
 import { FloatingWords } from "./FloatingWords";
 import { TypingAnimation } from "./TypingAnimation";
 import { DiaTextReveal } from "./DiaTextReveal";
 import { NumberTicker } from "./NumberTicker";
+import { TextAnimate } from "./magicui/TextAnimate";
+import { NeonGradientCard } from "./magicui/NeonGradientCard";
+import { OrbitingCircles } from "./magicui/OrbitingCircles";
 import cvData from "./cv/data.json";
 import { initScrollReveal } from "./scroll-reveal";
 import { useActiveSection } from "./useActiveSection";
@@ -133,15 +136,22 @@ export default function App() {
             <TypingAnimation words={c.hero.badgeWords} loop />
           </span>
           <h1 className="hero-swap">
-            <span className="hero-line">{c.hero.title}</span>
+            <span className="hero-line"><TextAnimate text={c.hero.title} ready={!showIntro} /></span>
             <br />
-            <span className="hero-accent">{c.hero.accent}</span>
+            <span className="hero-accent"><TextAnimate text={c.hero.accent} ready={!showIntro} delay={0.15} /></span>
           </h1>
           <p className="hero-description">{c.hero.description}</p>
           <div className="actions">
-            <a className="button primary" href={c.hero.primaryLink}>
+            <a className="button primary shimmer-button" href={c.hero.primaryLink}>
+              <span className="shimmer-button__spark-box" aria-hidden="true">
+                <span className="shimmer-button__spark">
+                  <span className="shimmer-button__spark-before" />
+                </span>
+              </span>
               {c.hero.primaryLabel}
               <ArrowLeft size={18} />
+              <span className="shimmer-button__highlight" aria-hidden="true" />
+              <span className="shimmer-button__backdrop" aria-hidden="true" />
             </a>
             <a
               className="text-link"
@@ -221,27 +231,36 @@ export default function App() {
     stats: (
       <section className="container stats-section" aria-labelledby="stats-label">
         <span className="eyebrow" id="stats-label">{c.stats.label}</span>
-        <dl className="stats-grid">
+        <div className="stats-grid" role="list">
           {c.stats.items.map((item) => (
-            <div key={item.label}>
-              <dt>{item.label}</dt>
-              <dd>
-                <NumberTicker value={item.value} ready={!showIntro} />
-                {item.suffix && <span className="stat-suffix">{item.suffix}</span>}
-              </dd>
-            </div>
+            <NeonGradientCard key={item.label} className="stat-card">
+              <div role="listitem" className="stat-item">
+                <span className="stat-label">{item.label}</span>
+                <strong className="stat-value">
+                  <NumberTicker value={item.value} ready={!showIntro} />
+                  {item.suffix && <span className="stat-suffix">{item.suffix}</span>}
+                </strong>
+              </div>
+            </NeonGradientCard>
           ))}
-        </dl>
+        </div>
       </section>
     ),
     expertise: (
       <div className="expertise-strip">
         <div className="container">
-          <span>{c.expertise.label}</span>
-          <div dir="ltr">
-            {c.expertise.items.map((item, index) => (
-              <TechBadge key={index} name={item} />
-            ))}
+          <div className="mui-orbit" dir="ltr" role="list" aria-label={c.expertise.label}>
+            <span className="mui-orbit__center" aria-hidden="true">{c.expertise.label}</span>
+            <OrbitingCircles iconSize={46} radius={150}>
+              {c.expertise.items.slice(0, 3).map((item) => (
+                <TechIcon key={item} name={item} />
+              ))}
+            </OrbitingCircles>
+            <OrbitingCircles iconSize={38} radius={90} reverse speed={2}>
+              {c.expertise.items.slice(3).map((item) => (
+                <TechIcon key={item} name={item} />
+              ))}
+            </OrbitingCircles>
           </div>
         </div>
       </div>

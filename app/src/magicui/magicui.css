@@ -1,0 +1,330 @@
+/* ============ Magic UI ports (no Tailwind / motion) ============ */
+
+/* ---- Shimmer Button (hero primary CTA) ----
+   Original: --spread 90deg, shimmer #fff, size .05em, duration 3s, radius 100px.
+   Background uses the site's brand blue instead of the demo black. */
+.shimmer-button {
+  --spread: 90deg;
+  --shimmer-color: #ffffff;
+  --radius: 100px;
+  --speed: 3s;
+  --cut: 0.05em;
+  --bg: var(--site-accent, #0066cc);
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: var(--radius);
+  border: 1px solid #ffffff1a;
+  background: var(--bg);
+}
+.shimmer-button__spark-box {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  overflow: visible;
+  filter: blur(2px);
+  container-type: size;
+}
+.shimmer-button__spark {
+  position: absolute;
+  inset: 0;
+  height: 100cqh;
+  aspect-ratio: 1;
+  animation: shimmer-slide var(--speed) ease-in-out infinite alternate;
+}
+.shimmer-button__spark-before {
+  position: absolute;
+  inset: -100%;
+  width: auto;
+  background: conic-gradient(
+    from calc(270deg - (var(--spread) * 0.5)),
+    transparent 0,
+    var(--shimmer-color) var(--spread),
+    transparent var(--spread)
+  );
+  animation: spin-around calc(var(--speed) * 2) infinite linear;
+}
+.shimmer-button__highlight {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 -8px 10px #ffffff1f;
+  transition: box-shadow 0.3s ease-in-out;
+  pointer-events: none;
+}
+.shimmer-button:hover .shimmer-button__highlight {
+  box-shadow: inset 0 -6px 10px #ffffff3f;
+}
+.shimmer-button:active .shimmer-button__highlight {
+  box-shadow: inset 0 -10px 10px #ffffff3f;
+}
+.shimmer-button__backdrop {
+  position: absolute;
+  inset: var(--cut);
+  z-index: -2;
+  border-radius: var(--radius);
+  background: var(--bg);
+  pointer-events: none;
+}
+@keyframes shimmer-slide {
+  to {
+    transform: translate(calc(100cqw - 100%), 0);
+  }
+}
+@keyframes spin-around {
+  0% { transform: translateZ(0) rotate(0); }
+  15%, 35% { transform: translateZ(0) rotate(90deg); }
+  65%, 85% { transform: translateZ(0) rotate(270deg); }
+  100% { transform: translateZ(0) rotate(360deg); }
+}
+
+/* ---- Text Animate (blurInUp, by word) ---- */
+.mui-text-animate__word {
+  display: inline-block;
+  white-space: pre;
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(20px);
+  transition:
+    transform 0.3s,
+    opacity 0.4s,
+    filter 0.3s;
+}
+/* In the hero headline the colour comes from the line's clipped gradient
+   (hero-swap). While animating, each word carries its own copy of that
+   gradient (Chrome does not repaint the parent's clip for late words);
+   TextAnimate then returns to plain text. */
+.hero h1.hero-swap .mui-text-animate,
+.hero h1.hero-swap .mui-text-animate__word {
+  color: transparent;
+  background: inherit;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.mui-text-animate.is-shown .mui-text-animate__word {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+
+/* ---- Marquee (organisation logos) ---- */
+.mui-marquee {
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap);
+  overflow: hidden;
+  padding: 8px;
+  direction: ltr;
+}
+.mui-marquee__track {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-around;
+  gap: var(--gap);
+  animation: marquee var(--duration) infinite linear;
+}
+.mui-marquee.is-reverse .mui-marquee__track {
+  animation-direction: reverse;
+}
+.mui-marquee.pause-on-hover:hover .mui-marquee__track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - var(--gap))); }
+}
+.work-avatar-marquee {
+  width: min(360px, 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+.work-avatar-marquee .org-avatar,
+.work-avatar-marquee .org-avatar:first-child {
+  margin-inline-start: 0;
+}
+
+/* ---- Neon Gradient Card (stats) ---- */
+.mui-neon {
+  position: relative;
+  z-index: 10;
+  border-radius: var(--border-radius);
+}
+.mui-neon__content {
+  position: relative;
+  height: 100%;
+  min-height: inherit;
+  border-radius: var(--card-content-radius);
+  background: var(--surface);
+  padding: 24px;
+  overflow-wrap: break-word;
+}
+.mui-neon__content::before,
+.mui-neon__content::after {
+  content: "";
+  position: absolute;
+  top: calc(-1 * var(--border-size));
+  left: calc(-1 * var(--border-size));
+  z-index: -10;
+  display: block;
+  width: var(--pseudo-element-width);
+  height: var(--pseudo-element-height);
+  border-radius: var(--border-radius);
+  background: linear-gradient(0deg, var(--neon-first-color), var(--neon-second-color));
+  background-size: 100% 200%;
+  animation: background-position-spin 3000ms infinite alternate;
+}
+.mui-neon__content::after {
+  filter: blur(var(--after-blur));
+  opacity: 0.8;
+}
+@keyframes background-position-spin {
+  0% { background-position: top center; }
+  100% { background-position: bottom center; }
+}
+/* Stats layout inside the cards. */
+.stats-section .stats-grid {
+  border-top: 0;
+  gap: 24px;
+}
+.stats-section .stats-grid > .stat-card {
+  padding-top: 0;
+  display: block;
+}
+.stat-item {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+}
+.stat-value {
+  white-space: nowrap;
+  font: 800 clamp(26px, 4.2vw, 52px) / 1.1 Inter, sans-serif;
+  letter-spacing: -1.5px;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+  text-align: right;
+}
+.stat-value .stat-suffix {
+  color: var(--accent);
+}
+.stat-label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.7;
+}
+
+/* ---- Orbiting Circles (technologies) ---- */
+.mui-orbit {
+  position: relative;
+  height: 360px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.mui-orbit__path {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.mui-orbit__path circle {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.mui-orbit__item {
+  position: absolute;
+  display: flex;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transform: translateZ(0);
+  animation: orbit calc(var(--duration) * 1s) linear infinite;
+}
+.mui-orbit__item.is-reverse {
+  animation-direction: reverse;
+}
+@keyframes orbit {
+  0% {
+    transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
+  }
+  100% {
+    transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
+  }
+}
+.expertise-strip .tech-icon,
+.tech-icon {
+  font-size: 12px;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--brand, var(--text));
+  box-shadow: 0 6px 18px #0003;
+}
+.tech-icon svg {
+  width: 55%;
+  height: 55%;
+  fill: currentColor;
+}
+/* The technologies strip now hosts the orbit, centred. */
+.expertise-strip > .container {
+  justify-content: center;
+}
+.expertise-strip .container > .mui-orbit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 420px;
+  gap: 0;
+}
+.expertise-strip .mui-orbit__center {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .mui-orbit {
+    height: 380px;
+    margin-block: -20px;
+  }
+  .expertise-strip .container > .mui-orbit {
+    transform: scale(0.88);
+  }
+}
+
+@media (max-width: 600px) {
+  .mui-neon__content {
+    padding: 18px 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shimmer-button__spark,
+  .shimmer-button__spark-before,
+  .mui-marquee__track,
+  .mui-neon__content::before,
+  .mui-neon__content::after,
+  .mui-orbit__item {
+    animation: none;
+  }
+  .mui-orbit__item {
+    transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
+  }
+  .mui-marquee {
+    flex-wrap: wrap;
+  }
+  .mui-marquee__track[aria-hidden] {
+    display: none;
+  }
+}

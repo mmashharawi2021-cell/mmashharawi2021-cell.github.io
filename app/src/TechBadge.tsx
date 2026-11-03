@@ -51,3 +51,20 @@ export function TechBadge({ name }: { name: string }) {
     </b>
   );
 }
+
+// Icon-only variant used in the orbiting technologies section.
+export function TechIcon({ name }: { name: string }) {
+  const brand = brands[name.trim().toLowerCase()];
+  const color = brand ? brand.color ?? `#${brand.icon.hex}` : undefined;
+  return (
+    <span className="tech-icon" role="listitem" title={name} aria-label={name} style={{ "--brand": color } as CSSProperties}>
+      {brand ? (
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d={brand.icon.path} />
+        </svg>
+      ) : (
+        name.slice(0, 2)
+      )}
+    </span>
+  );
+}
