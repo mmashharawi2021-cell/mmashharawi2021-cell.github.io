@@ -15,6 +15,7 @@ import "./design-polish.css";
 import "./typing-animation.css";
 import "./dia-text-reveal.css";
 import "./stats.css";
+import "./experience.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

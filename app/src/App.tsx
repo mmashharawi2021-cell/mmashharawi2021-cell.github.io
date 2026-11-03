@@ -12,6 +12,7 @@ import { FloatingWords } from "./FloatingWords";
 import { TypingAnimation } from "./TypingAnimation";
 import { DiaTextReveal } from "./DiaTextReveal";
 import { NumberTicker } from "./NumberTicker";
+import cvData from "./cv/data.json";
 import {
   ArrowDown,
   ArrowLeft,
@@ -289,6 +290,25 @@ export default function App() {
             </div>
           ))}
         </div>
+      </section>
+    ),
+    experience: (
+      <section className="container experience-section" id="experience" aria-labelledby="experience-label">
+        <div className="experience-head">
+          <span className="eyebrow" id="experience-label">{c.experience.label}</span>
+          <a className="text-link" href={import.meta.env.BASE_URL + "cv/"}>
+            {c.experience.cvLink} <ArrowUpLeft size={15} />
+          </a>
+        </div>
+        <ol className="experience-list">
+          {cvData.experience.map((job) => (
+            <li key={job.roleAr + job.periodAr}>
+              <span className="experience-period">{job.periodAr}</span>
+              <h3>{job.roleAr}</h3>
+              <span className="experience-company">{job.companyAr}</span>
+            </li>
+          ))}
+        </ol>
       </section>
     ),
     process: (

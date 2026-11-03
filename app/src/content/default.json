@@ -68,6 +68,10 @@
       "visible": true
     },
     {
+      "id": "experience",
+      "visible": true
+    },
+    {
       "id": "process",
       "visible": true
     },
@@ -116,6 +120,10 @@
       { "value": 1000, "suffix": "+", "label": "وحدة سكنية حُصرت ميدانيًا في مناطق الشمال" },
       { "value": 7, "suffix": "", "label": "جهات ومؤسسات عملت معها" }
     ]
+  },
+  "experience": {
+    "label": "المسيرة المهنية",
+    "cvLink": "السيرة الذاتية كاملة"
   },
   "expertise": {
     "label": "تقنيات أعمل بها",

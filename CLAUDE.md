@@ -64,12 +64,17 @@
 5. **`projects`:** `ProjectsSection.tsx` مع فلاتر وبطاقات و `CardGlow.tsx` (توهج بلون الصورة) و `HoverPill.tsx` ونافذة تفاصيل `ProjectDialog.tsx`، والصور عبر `ProgressiveImage.tsx`.
 6. **`services`:** 6 بطاقات خدمات.
 7. **`skills`:** قائمة مهارات ونبذة.
+7b. **`experience`:** المسيرة المهنية (`experience.css`)، وتُقرأ مباشرة من `experience` في `cv/data.json`، فتحديث السيرة يحدّثها.
 8. **`process`:** 4 مراحل عمل.
 9. **`contact`:** نموذج يفتح واتساب، والبريد، وروابط التواصل.
 10. **الخاتمة:** `DiaTextReveal.tsx` بإعدادات demo-4، ويمرّ شريط الألوان من اليمين إلى اليسار، ونصّها من `footer.note`.
 11. **الفوتر:** الشعار وروابط التواصل وحقوق النشر.
 
 **صفحة السيرة:** `app/cv/index.html` و `app/src/cv/main.tsx`، ويولّد البناء ملف PDF عبر `scripts/build-cv-pdf.mjs`.
+
+**الخطوط:** Inter و Tajawal محمّلة من ملفات الموقع (`app/src/fonts/` و `fonts.css`) بدل Google Fonts.
+
+**صور المشاريع:** لكل صورة نسخة `-720.webp`، و `ProgressiveImage` يختار بينهما عبر `sizes`. أي صورة مشروع جديدة تحتاج نسختها `-720`.
 
 **طبقات CSS** (تُستورد في `main.tsx`): `styles.css` (الأساس) ثم `studio.css` (الألوان والهيرو، ومتغيرات `--accent` وغيرها) ثم `projects.css` ثم البقية. `design-polish.css` فيه شريط تقدّم القراءة وشريط التمرير وتأثير الضغط وتقليل الحركة.
 
