@@ -119,7 +119,7 @@ try {
     for (const width of [390, 1280]) {
       const { context, page, errors } = await launchViewport(width, 844);
       try {
-        const card = page.getByRole("link", { name: "اطّلع على السيرة الذاتية لمهند المشهراوي" });
+        const card = page.getByRole("link", { name: /^مهند المشهراوي .*اطّلع على السيرة الذاتية$/ });
         await card.click();
         await page.waitForURL(base + "cv/");
         await page.locator("h1#cv-name").waitFor();

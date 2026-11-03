@@ -181,11 +181,12 @@ export default function App() {
               <small>{c.hero.mapText}</small>
             </div>
           </div>
-          <a className="glass-note developer-note cv-entry" href={import.meta.env.BASE_URL + "cv/"} aria-label="اطّلع على السيرة الذاتية لمهند المشهراوي">
-            <img src={assetUrl(c.identity.portrait)} alt={c.identity.name} loading="lazy" decoding="async" />
+          <a className="glass-note developer-note cv-entry" href={import.meta.env.BASE_URL + "cv/"}>
+            <img src={assetUrl(c.identity.portrait)} alt="" loading="lazy" decoding="async" />
             <div>
               <strong>{c.identity.name}</strong>
               <small>{c.hero.role}</small>
+              <span className="sr-only">، اطّلع على السيرة الذاتية</span>
             </div>
             <span className="note-check">
               <Check size={14} />
