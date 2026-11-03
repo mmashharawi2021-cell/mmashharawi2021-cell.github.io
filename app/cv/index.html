@@ -15,9 +15,14 @@
     <meta property="og:url" content="https://mmashharawi2021-cell.github.io/myprofile-/cv/" />
     <meta property="og:image" content="https://mmashharawi2021-cell.github.io/myprofile-/og-preview.png" />
     <title>السيرة الذاتية | مهند المشهراوي</title>
+    <script>
+      addEventListener("pagereveal", function (e) {
+        if (e.viewTransition) document.documentElement.classList.add("vt-arrival");
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/cv/main.tsx"></script>
+    <script type="module" src="/src/cv/main.tsx" blocking="render"></script>
   </body>
 </html>

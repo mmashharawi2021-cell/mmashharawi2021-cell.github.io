@@ -189,3 +189,12 @@ body { background:var(--cv-bg); color:var(--cv-text); }
 .cv-contact-value { display:block; font-size:12px; font-weight:400; margin-top:4px; overflow-wrap:anywhere; }
 .cv-contact-links a { max-width:100%; min-width:0; }
 .cv-contact-links a > span { min-width:0; }
+
+/* Cross-page transition with the homepage CV card (see motion.css). */
+@view-transition { navigation: auto; }
+.cv-portrait-frame img { view-transition-name: cv-portrait; }
+#cv-name { view-transition-name: cv-name; }
+::view-transition-group(cv-portrait), ::view-transition-group(cv-name) { animation-duration:.55s; animation-timing-function:cubic-bezier(.2,.8,.2,1); }
+/* When arriving through the transition, skip the hero entrance so the morph lands on visible elements. */
+.vt-arrival .cv-hero-copy, .vt-arrival .cv-portrait-side { animation:none; }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }

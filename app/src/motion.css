@@ -30,3 +30,58 @@
     translate: none;
   }
 }
+
+/* Cross-page transition between the homepage and the CV page (View Transitions
+   API, same-origin navigation). Portrait and name morph between the CV card and
+   the CV hero; the rest of the page cross-fades. Unsupported browsers navigate
+   normally. */
+@view-transition {
+  navigation: auto;
+}
+.cv-entry img {
+  view-transition-name: cv-portrait;
+}
+.cv-entry strong {
+  view-transition-name: cv-name;
+}
+::view-transition-group(cv-portrait),
+::view-transition-group(cv-name) {
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+/* Active-section indicator in the header nav (desktop). */
+.nav-active-line {
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+  transition:
+    transform 0.45s cubic-bezier(0.3, 0.8, 0.2, 1),
+    width 0.45s cubic-bezier(0.3, 0.8, 0.2, 1),
+    opacity 0.25s;
+}
+.nav-active-line.is-visible {
+  opacity: 1;
+}
+.desktop-nav a[aria-current="location"] {
+  color: var(--text);
+}
+.desktop-nav.is-open .nav-active-line {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-active-line {
+    transition: opacity 0.2s;
+  }
+}

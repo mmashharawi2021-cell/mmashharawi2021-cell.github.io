@@ -1,4 +1,4 @@
-﻿import { useCallback, useEffect, useRef, useState } from "react";
+﻿import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import ReferenceIntro from "./ReferenceIntro";
 import WorkAvatarCircles from "./WorkAvatarCircles";
 import { revealThemeFromButton } from "./theme-reveal";
@@ -14,6 +14,7 @@ import { DiaTextReveal } from "./DiaTextReveal";
 import { NumberTicker } from "./NumberTicker";
 import cvData from "./cv/data.json";
 import { initScrollReveal } from "./scroll-reveal";
+import { useActiveSection } from "./useActiveSection";
 import {
   ArrowDown,
   ArrowLeft,
@@ -77,6 +78,13 @@ export default function App() {
   const familyName = nameParts.slice(1).join(" ");
   const [menuOpen, setMenuOpen] = useState(false);
   const navPill = useHoverPill<HTMLElement>(undefined, menuOpen);
+  const activeSection = useActiveSection(c.navigation.map((link) => link.href.replace("#", "")));
+  const navRef = useRef<HTMLElement | null>(null);
+  const [navLine, setNavLine] = useState<{ x: number; w: number } | null>(null);
+  useLayoutEffect(() => {
+    const link = navRef.current?.querySelector<HTMLElement>('a[aria-current="location"]');
+    setNavLine(link ? { x: link.offsetLeft, w: link.offsetWidth } : null);
+  }, [activeSection, menuOpen]);
   const [selected, setSelected] = useState<Project | null>(null);
   const first = c.projects[0];
   const socialLinks = [
@@ -448,14 +456,23 @@ export default function App() {
             id="main-navigation"
             className={menuOpen ? "desktop-nav is-open" : "desktop-nav"}
             aria-label="القائمة الرئيسية"
-            ref={navPill.ref}
+            ref={(el) => {
+              (navPill.ref as React.MutableRefObject<HTMLElement | null>).current = el;
+              navRef.current = el;
+            }}
             {...navPill.handlers}
           >
             {navPill.pill}
+            <span
+              className={`nav-active-line${navLine ? " is-visible" : ""}`}
+              aria-hidden="true"
+              style={navLine ? { width: navLine.w * 0.5, transform: `translateX(${navLine.x + navLine.w * 0.25}px)` } : undefined}
+            />
             {c.navigation.map((link) => (
               <a
                 href={link.href}
                 key={link.id}
+                aria-current={activeSection === link.href.replace("#", "") ? "location" : undefined}
                 onClick={() => setMenuOpen(false)}
               >
                 {link.label}
