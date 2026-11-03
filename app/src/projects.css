@@ -776,3 +776,45 @@
   line-height: 1.9;
   margin-top: 10px;
 }
+
+/* Case study (problem / solution / result) inside the project dialog. */
+.project-case-study {
+  margin-top: 24px;
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+}
+.project-case-study > h3 {
+  font-weight: 400;
+}
+.case-study-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 14px;
+}
+.case-study-grid h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.case-study-grid p,
+.case-study-grid li {
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.85;
+}
+.case-study-grid p,
+.case-study-grid ul {
+  margin-top: 8px;
+}
+.case-study-grid ul {
+  padding-inline-start: 18px;
+  display: grid;
+  gap: 4px;
+}
+@media (max-width: 760px) {
+  .case-study-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}

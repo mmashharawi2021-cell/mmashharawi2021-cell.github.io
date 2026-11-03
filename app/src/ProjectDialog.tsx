@@ -144,6 +144,29 @@ export default function ProjectDialog({
               <p>{current.value}</p>
             </div>
           </div>
+          {"caseStudy" in current && current.caseStudy && (
+            <section className="project-case-study" aria-labelledby="case-study-title">
+              <h3 id="case-study-title" className="detail-label">{copy.caseStudy}</h3>
+              <div className="case-study-grid">
+                <div>
+                  <h4>{copy.problem}</h4>
+                  <p>{current.caseStudy.problem}</p>
+                </div>
+                <div>
+                  <h4>{copy.solution}</h4>
+                  <ul>
+                    {current.caseStudy.solution.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4>{copy.result}</h4>
+                  <p>{current.caseStudy.result}</p>
+                </div>
+              </div>
+            </section>
+          )}
           {current.role && (
             <div className="project-contribution">
               <span className="detail-label">{copy.contribution}</span>
