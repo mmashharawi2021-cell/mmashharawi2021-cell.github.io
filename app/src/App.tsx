@@ -12,7 +12,6 @@ import { FloatingWords } from "./FloatingWords";
 import { TypingAnimation } from "./TypingAnimation";
 import { DiaTextReveal } from "./DiaTextReveal";
 import { NumberTicker } from "./NumberTicker";
-import { TextAnimate } from "./magicui/TextAnimate";
 import { NeonGradientCard } from "./magicui/NeonGradientCard";
 import { OrbitingCircles } from "./magicui/OrbitingCircles";
 import cvData from "./cv/data.json";
@@ -136,9 +135,9 @@ export default function App() {
             <TypingAnimation words={c.hero.badgeWords} loop />
           </span>
           <h1 className="hero-swap">
-            <span className="hero-line"><TextAnimate text={c.hero.title} ready={!showIntro} /></span>
+            <span className="hero-line">{c.hero.title}</span>
             <br />
-            <span className="hero-accent"><TextAnimate text={c.hero.accent} ready={!showIntro} delay={0.15} /></span>
+            <span className="hero-accent">{c.hero.accent}</span>
           </h1>
           <p className="hero-description">{c.hero.description}</p>
           <div className="actions">

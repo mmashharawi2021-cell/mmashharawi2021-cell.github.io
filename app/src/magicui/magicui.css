@@ -79,35 +79,6 @@
   100% { transform: translateZ(0) rotate(360deg); }
 }
 
-/* ---- Text Animate (blurInUp, by word) ---- */
-.mui-text-animate__word {
-  display: inline-block;
-  white-space: pre;
-  opacity: 0;
-  filter: blur(10px);
-  transform: translateY(20px);
-  transition:
-    transform 0.3s,
-    opacity 0.4s,
-    filter 0.3s;
-}
-/* In the hero headline the colour comes from the line's clipped gradient
-   (hero-swap). While animating, each word carries its own copy of that
-   gradient (Chrome does not repaint the parent's clip for late words);
-   TextAnimate then returns to plain text. */
-.hero h1.hero-swap .mui-text-animate,
-.hero h1.hero-swap .mui-text-animate__word {
-  color: transparent;
-  background: inherit;
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-.mui-text-animate.is-shown .mui-text-animate__word {
-  opacity: 1;
-  filter: blur(0);
-  transform: none;
-}
-
 /* ---- Marquee (organisation logos) ---- */
 .mui-marquee {
   display: flex;

@@ -39,10 +39,7 @@
     0 0 / 240% 100% no-repeat;
   background-clip: text;
   -webkit-background-clip: text;
-  filter: drop-shadow(0 0 0 transparent);
-  transition:
-    background-position 0.9s cubic-bezier(0.3, 0.7, 0.2, 1),
-    filter 0.9s;
+  transition: background-position 0.9s cubic-bezier(0.3, 0.7, 0.2, 1);
 }
 .site-content .hero h1.hero-swap > .hero-accent {
   --from: var(--accent);
@@ -51,11 +48,6 @@
 .site-content .hero h1.hero-swap:hover > span,
 .site-content .hero h1.hero-swap:active > span {
   background-position: 100% 0;
-  filter: drop-shadow(0 0 14px color-mix(in srgb, var(--accent) 45%, transparent));
-}
-.site-content .hero h1.hero-swap:hover > .hero-accent,
-.site-content .hero h1.hero-swap:active > .hero-accent {
-  filter: drop-shadow(0 0 14px color-mix(in srgb, var(--text) 30%, transparent));
 }
 @media (prefers-reduced-motion: reduce) {
   .site-content .hero h1.hero-swap > span {
