@@ -120,6 +120,7 @@ export default function ProjectDialog({
           <ProgressiveImage
             key={current.image}
             src={assetUrl(current.image)}
+            sizes="(max-width: 760px) 85vw, 926px"
             alt={`واجهة ${current.title}`}
             eager
           />

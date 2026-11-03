@@ -164,6 +164,7 @@ export default function App() {
               <ProgressiveImage
                 key={first.image}
                 src={assetUrl(first.image)}
+                sizes="(max-width: 800px) 85vw, 787px"
                 alt={first.title}
                 eager
               />

@@ -5,15 +5,23 @@ export default function ProgressiveImage({
   src,
   alt,
   eager = false,
+  sizes,
 }: {
   src: string;
   alt: string;
   eager?: boolean;
+  /** Rendered width hint; enables the 720w variant for project screenshots. */
+  sizes?: string;
 }) {
   const image = useRef<HTMLImageElement>(null);
   const [status, setStatus] = useState<"loading" | "loaded" | "error">(
     "loading",
   );
+  // Project screenshots ship a 720px-wide copy next to the 1440px original.
+  const srcSet =
+    sizes && /\/assets\/projects\/[^/]+\.webp$/.test(src)
+      ? `${src.replace(/\.webp$/, "-720.webp")} 720w, ${src} 1440w`
+      : undefined;
   useEffect(() => {
     if (image.current?.complete) {
       setStatus(image.current.naturalWidth ? "loaded" : "error");
@@ -36,6 +44,8 @@ export default function ProgressiveImage({
       <img
         ref={image}
         src={src}
+        srcSet={srcSet}
+        sizes={srcSet ? sizes : undefined}
         alt={alt}
         loading={eager ? "eager" : "lazy"}
         fetchPriority={eager ? "high" : "auto"}

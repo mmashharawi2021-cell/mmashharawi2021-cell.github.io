@@ -89,6 +89,7 @@ export default function ProjectsSection({
             >
               <ProgressiveImage
                 src={assetUrl(project.image)}
+                sizes="(max-width: 600px) 80vw, (max-width: 1000px) 46vw, 590px"
                 alt={`واجهة ${project.title}`}
               />
               <span className="preview-action">
