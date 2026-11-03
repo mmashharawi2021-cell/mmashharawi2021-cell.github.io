@@ -124,7 +124,7 @@ export function TypingAnimation({
   const text = reduced ? words[0] ?? "" : displayedText;
 
   return (
-    <span ref={ref} className={`typing-animation ${className}`.trim()}>
+    <span ref={ref} className={`typing-animation${phase === "pause" ? " is-complete" : ""} ${className}`.trim()}>
       <span className="sr-only">{words.join("، ")}</span>
       {/* Invisible sizers keep the box at the widest word so layout never shifts. */}
       {words.map((w) => (

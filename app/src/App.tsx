@@ -129,8 +129,7 @@ export default function App() {
         <div className="hero-copy">
           <p className="hello">{c.hero.greeting}</p>
           <p className="hero-name">{c.identity.name}</p>
-          <span className="eyebrow">
-            <span className="status-dot" />
+          <span className="eyebrow hero-badge">
             <TypingAnimation words={c.hero.badgeWords} loop />
           </span>
           <h1 className="hero-swap">
