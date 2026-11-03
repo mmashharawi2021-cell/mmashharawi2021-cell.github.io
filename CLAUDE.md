@@ -50,3 +50,28 @@
 
 ## 12. المبدأ الحاكم
 افهم المطلوب، افحص المشروع، نفّذ بأضيق نطاق، اختبر، ارفع إلى `main`، ثم قدّم تقرير الإنجاز والروابط.
+
+## 13. خريطة الموقع (مرجع للجلسات القادمة)
+
+**المحتوى:** كل النصوص في `app/src/content/default.json`، وبيانات السيرة في `app/src/cv/data.json`. ترتيب الأقسام وظهورها من `sections` في `default.json`.
+
+**الصفحة الرئيسية** (`app/src/App.tsx`) بالترتيب:
+1. **مقدمة التحميل:** `ReferenceIntro.tsx` و `reference-intro.css` و `brand-intro.css`. رسم شعار M خلال 5 ثوانٍ ثم انتقاله إلى الهيدر. قابلة للتخطي وتحترم تقليل الحركة.
+2. **الهيدر:** شعار M (`header-signature.css`)، والتنقل، وزر تبديل الوضع بانكشاف دائري (`theme-reveal.ts`)، وزر "لنتحدث"، وقائمة الجوال، وشريط تنقل سفلي على الجوال.
+3. **`home`:** كلمات تقنية عائمة (`FloatingWords.tsx`)، والاسم بتدرج متحرك (`name-flow`)، وصندوق الكتابة المتكررة (`TypingAnimation.tsx`، العبارات في `hero.badgeWords`)، والعنوان، والأزرار، وشعارات جهات العمل (`WorkAvatarCircles.tsx`)، ونافذة معاينة مشروع UN Field.
+4. **`expertise`:** شريط التقنيات (`TechBadge.tsx` بأيقونات simple-icons).
+5. **`projects`:** `ProjectsSection.tsx` مع فلاتر وبطاقات و `CardGlow.tsx` (توهج بلون الصورة) و `HoverPill.tsx` ونافذة تفاصيل `ProjectDialog.tsx`، والصور عبر `ProgressiveImage.tsx`.
+6. **`services`:** 6 بطاقات خدمات.
+7. **`skills`:** قائمة مهارات ونبذة.
+8. **`process`:** 4 مراحل عمل.
+9. **`contact`:** نموذج يفتح واتساب، والبريد، وروابط التواصل.
+10. **الخاتمة:** `DiaTextReveal.tsx` بإعدادات demo-4، ويمرّ شريط الألوان من اليمين إلى اليسار، ونصّها من `footer.note`.
+11. **الفوتر:** الشعار وروابط التواصل وحقوق النشر.
+
+**صفحة السيرة:** `app/cv/index.html` و `app/src/cv/main.tsx`، ويولّد البناء ملف PDF عبر `scripts/build-cv-pdf.mjs`.
+
+**طبقات CSS** (تُستورد في `main.tsx`): `styles.css` (الأساس) ثم `studio.css` (الألوان والهيرو، ومتغيرات `--accent` وغيرها) ثم `projects.css` ثم البقية. `design-polish.css` فيه شريط تقدّم القراءة وشريط التمرير وتأثير الضغط وتقليل الحركة.
+
+**ملفات غير مستخدمة حاليًا:** `magic-card.css` و `magic-card.ts` و `digital-glitch-intro.css`. لا تُحذف ولا تُستخدم إلا بطلب.
+
+**الاختبار والنشر:** يُبنى الموقع إلى `docs/`. على GitHub يعمل فحص الجودة `qa.yml` والنشر `deploy.yml` عند الرفع إلى `main`. محليًا يحتاج اختبارا `seo` و `release-static` الملف `docs/og-preview.png`، ويُولَّد في CI. اختبارات المتصفح في `scripts/qa-browser.mjs` (26 حالة).
