@@ -13,6 +13,7 @@ import { TypingAnimation } from "./TypingAnimation";
 import { DiaTextReveal } from "./DiaTextReveal";
 import { NumberTicker } from "./NumberTicker";
 import cvData from "./cv/data.json";
+import { initScrollReveal } from "./scroll-reveal";
 import {
   ArrowDown,
   ArrowLeft,
@@ -89,6 +90,7 @@ export default function App() {
   useEffect(() => {
     document.documentElement.dataset.theme = mode;
   }, [mode]);
+  useEffect(() => initScrollReveal(), []);
   const toggleTheme = (event: React.MouseEvent<HTMLButtonElement>) => {
     const next = mode === "dark" ? "light" : "dark";
     revealThemeFromButton(event.currentTarget, next, () => setTheme(next));

@@ -72,6 +72,46 @@ export function FloatingWords() {
     };
   }, []);
 
+  // Depth parallax: words drift with scroll and the pointer position, larger
+  // (closer) words moving further. Runs only while the hero is on screen.
+  useEffect(() => {
+    const box = ref.current;
+    if (!box || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const finePointer = matchMedia("(hover: hover)").matches;
+    let frame = 0;
+    let visible = true;
+    let px = 0;
+    let py = 0;
+    const apply = () => {
+      frame = 0;
+      box.style.setProperty("--sy", String(Math.min(window.scrollY, 1200)));
+      box.style.setProperty("--px", px.toFixed(3));
+      box.style.setProperty("--py", py.toFixed(3));
+    };
+    const schedule = () => {
+      if (visible && !frame) frame = requestAnimationFrame(apply);
+    };
+    const move = (event: PointerEvent) => {
+      px = (event.clientX / window.innerWidth) * 2 - 1;
+      py = (event.clientY / window.innerHeight) * 2 - 1;
+      schedule();
+    };
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      schedule();
+    });
+    io.observe(box);
+    window.addEventListener("scroll", schedule, { passive: true });
+    if (finePointer) window.addEventListener("pointermove", move, { passive: true });
+    apply();
+    return () => {
+      io.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("pointermove", move);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
+
   return (
     <div className="floating-words" aria-hidden="true" ref={ref}>
       {words.map(([label, key, left, top, size, seconds], index) => {
@@ -87,6 +127,7 @@ export function FloatingWords() {
                 top: `${top}%`,
                 fontSize: size,
                 "--brand": color,
+                "--depth": ((size - 10) / 8).toFixed(2),
               } as CSSProperties
             }
           >
