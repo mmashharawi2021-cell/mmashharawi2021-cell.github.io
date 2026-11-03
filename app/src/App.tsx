@@ -185,12 +185,6 @@ export default function App() {
                 alt={first.title}
                 eager
               />
-              <span className="survey-pins" aria-hidden="true">
-                <i style={{ left: "21%", top: "72%" }} />
-                <i style={{ left: "27%", top: "61%" }} />
-                <i style={{ left: "33%", top: "52%" }} />
-                <i style={{ left: "26%", top: "79%" }} />
-              </span>
               <span className="hero-project-open">
                 {c.hero.openLabel}
                 <ArrowUpLeft size={17} />

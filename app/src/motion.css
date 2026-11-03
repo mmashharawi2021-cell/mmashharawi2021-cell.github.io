@@ -208,46 +208,8 @@
   }
 }
 
-/* GIS touch: survey points pulsing on the UN Field preview. */
-.survey-pins {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-.survey-pins i {
-  position: absolute;
-  width: 9px;
-  height: 9px;
-  margin: -4.5px 0 0 -4.5px;
-  border-radius: 50%;
-  background: #1f7aff;
-  box-shadow: 0 0 0 2px #fff;
-}
-.survey-pins i::after {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: 50%;
-  border: 2px solid #1f7aff;
-  animation: survey-pulse 2.4s cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
-}
-.survey-pins i:nth-child(2)::after { animation-delay: 0.6s; }
-.survey-pins i:nth-child(3)::after { animation-delay: 1.2s; }
-.survey-pins i:nth-child(4)::after { animation-delay: 1.8s; }
-@keyframes survey-pulse {
-  from {
-    transform: scale(1);
-    opacity: 0.9;
-  }
-  to {
-    transform: scale(3.6);
-    opacity: 0;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
-  .hero::before,
-  .survey-pins i::after {
+  .hero::before {
     animation: none;
   }
 }
