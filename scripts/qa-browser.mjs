@@ -4,7 +4,7 @@ import { spawn } from "node:child_process";
 import { setTimeout as sleep } from "node:timers/promises";
 import { chromium } from "playwright";
 
-const base = "http://127.0.0.1:4173/myprofile-/";
+const base = "http://127.0.0.1:4173/";
 const output = "qa-artifacts";
 mkdirSync(output, { recursive: true });
 const server = spawn(process.execPath, ["./node_modules/vite/bin/vite.js", "preview", "--host", "127.0.0.1", "--port", "4173", "--strictPort"], {
@@ -127,7 +127,7 @@ try {
         assert.equal(await page.locator(".cv-skill-card").count(), 3);
         assert.equal(await page.locator(".cv-project-card").count(), 4);
         const pdf = await page.locator('a[download="Mohanad-Almashharawi-CV.pdf"]').getAttribute("href");
-        assert.equal(pdf, "/myprofile-/cv/Mohanad-Almashharawi-CV.pdf");
+        assert.equal(pdf, "/cv/Mohanad-Almashharawi-CV.pdf");
         const response = await page.request.get(base + "cv/Mohanad-Almashharawi-CV.pdf");
         assert.equal(response.status(), 200);
         assert.equal((await response.body()).subarray(0, 4).toString(), "%PDF");
@@ -228,7 +228,7 @@ try {
     const page = await context.newPage();
     const apiRequests = [];
     page.on("request", request => {
-      if (new URL(request.url()).pathname.startsWith("/myprofile-/api/")) {
+      if (new URL(request.url()).pathname.startsWith("/api/")) {
         apiRequests.push(request.url());
       }
     });

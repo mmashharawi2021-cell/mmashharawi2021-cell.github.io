@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-const site = "https://mmashharawi2021-cell.github.io/myprofile-/";
+const site = "https://mmashharawi2021-cell.github.io/";
 const html = readFileSync("docs/index.html", "utf8");
 const config = JSON.parse(readFileSync("app/src/content/default.json", "utf8"));
 const sitemap = readFileSync("docs/sitemap.xml", "utf8");
@@ -37,7 +37,7 @@ test("SEO: static title, description and canonical match site content", () => {
 test("SEO: share cards use public PNG with correct dimensions and mime", () => {
   const image = meta("property", "og:image");
   assert.ok(image.startsWith(site), "Image must be absolute HTTPS URL");
-  assert.match(image, /^https:\/\/[^"]+\/myprofile-\/og-preview\.png(?:\?v=[a-z0-9]+)?$/);
+  assert.match(image, /^https:\/\/mmashharawi2021-cell\.github\.io\/og-preview\.png(?:\?v=[a-z0-9]+)?$/);
   assert.equal(meta("name", "twitter:image"), image);
   assert.equal(meta("property", "og:image:secure_url"), image);
   assert.equal(meta("property", "og:image:type"), "image/png");
@@ -81,7 +81,7 @@ test("SEO: sitemap contains only actual canonical page", () => {
   const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
   assert.deepEqual(urls, [site, site + "cv/"]);
   assert.match(sitemap, /^<\?xml version="1\.0" encoding="UTF-8"\?>/);
-  assert.ok(link("sitemap").includes('href="/myprofile-/sitemap.xml"'));
+  assert.ok(link("sitemap").includes('href="/sitemap.xml"'));
   assert.equal(config.projects[0].id, "un-field");
   assert.ok(readFileSync("docs/assets/projects/un-field.webp").length > 1000);
 });

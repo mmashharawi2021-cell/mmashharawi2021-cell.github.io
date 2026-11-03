@@ -2,7 +2,7 @@
 
 هذا موقعي الذي أعرض فيه أعمالي في نظم المعلومات الجغرافية وتطوير أنظمة الويب.
 
-**الموقع:** https://mmashharawi2021-cell.github.io/myprofile-/
+**الموقع:** https://mmashharawi2021-cell.github.io/
 
 ## لماذا بنيته
 
@@ -28,7 +28,7 @@ npm ci
 npm run dev
 ```
 
-ثم افتح http://localhost:5173/myprofile-/
+ثم افتح http://localhost:5173/
 
 ## ما زلت أعمل عليه
 

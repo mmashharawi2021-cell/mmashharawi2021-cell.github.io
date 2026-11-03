@@ -42,8 +42,8 @@
 بالترتيب: (1) الموقع المباشر، (2) المستودع، (3) آخر Commit، (4) GitHub Actions. روابط حقيقية فقط، ورابط Commit لا رابط PR.
 
 ## 11. الموقع
-- المستودع: https://github.com/mmashharawi2021-cell/myprofile-
-- الموقع: https://mmashharawi2021-cell.github.io/myprofile-/
+- المستودع: https://github.com/mmashharawi2021-cell/mmashharawi2021-cell.github.io (كان اسمه `myprofile-`)
+- الموقع: https://mmashharawi2021-cell.github.io/ (المسار القديم `/myprofile-/` يحوّل إليه)
 - التقنيات: React + TypeScript + Vite.
 - حافظ على: التصميم المعتمد، الهوية البصرية، المحتوى العربي و RTL، التجاوب، الوضعين، البطاقات والتنقل، معرض المشاريع، شعارات جهات العمل، صفحة السيرة الذاتية، روابط التواصل، الأداء وإمكانية الوصول.
 - **قرار ثابت:** تصميم البطاقات المعتمد هو الموجود بعد التراجع عن تجارب Magic Card. لا تُعد Magic Card ولا تعدّل تأثيرات البطاقات إلا بطلب جديد وصريح.
