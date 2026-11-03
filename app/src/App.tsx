@@ -209,7 +209,7 @@ export default function App() {
             <div key={item.label}>
               <dt>{item.label}</dt>
               <dd>
-                <NumberTicker value={item.value} />
+                <NumberTicker value={item.value} ready={!showIntro} />
                 {item.suffix && <span className="stat-suffix">{item.suffix}</span>}
               </dd>
             </div>

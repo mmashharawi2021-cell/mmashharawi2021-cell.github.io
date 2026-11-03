@@ -19,6 +19,8 @@ type Props = {
   delay?: number;
   decimalPlaces?: number;
   className?: string;
+  /** Gate: counting starts only once this is true (e.g. after the loading intro). */
+  ready?: boolean;
 };
 
 export function NumberTicker({
@@ -28,6 +30,7 @@ export function NumberTicker({
   delay = 0,
   decimalPlaces = 0,
   className = "",
+  ready = true,
 }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
 
@@ -47,6 +50,7 @@ export function NumberTicker({
       return;
     }
     el.textContent = format(from);
+    if (!ready) return;
 
     const w0 = Math.sqrt(STIFFNESS / MASS);
     const zeta = DAMPING / (2 * Math.sqrt(STIFFNESS * MASS));
@@ -87,7 +91,7 @@ export function NumberTicker({
       clearTimeout(timer);
       cancelAnimationFrame(raf);
     };
-  }, [value, startValue, direction, delay, decimalPlaces]);
+  }, [value, startValue, direction, delay, decimalPlaces, ready]);
 
   return (
     <span ref={ref} className={`number-ticker ${className}`.trim()}>
