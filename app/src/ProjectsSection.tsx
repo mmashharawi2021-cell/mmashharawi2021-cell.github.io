@@ -4,6 +4,7 @@ import ProgressiveImage from "./ProgressiveImage";
 import { useHoverPill } from "./HoverPill";
 import { CardGlow } from "./CardGlow";
 import { assetUrl, useSite, type Project } from "./content/SiteContent";
+import { ScrollWords } from "./ScrollWords";
 
 const filters = ["الكل", "GIS والخرائط", "أنظمة الويب", "مواقع ومنصات"];
 function matches(project: Project, filter: string) {
@@ -34,9 +35,9 @@ export default function ProjectsSection({
         <div>
           <span className="eyebrow">{copy.label}</span>
           <h2 id="projects-heading">
-            {copy.title}
+            <ScrollWords text={copy.title} />
             <br />
-            <span>{copy.accent}</span>
+            <span><ScrollWords text={copy.accent} /></span>
           </h2>
         </div>
         <p>{copy.description}</p>

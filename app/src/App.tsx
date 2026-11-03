@@ -15,6 +15,8 @@ import { NumberTicker } from "./NumberTicker";
 import cvData from "./cv/data.json";
 import { initScrollReveal } from "./scroll-reveal";
 import { useActiveSection } from "./useActiveSection";
+import { ScrollWords, initScrollWords } from "./ScrollWords";
+import { initTimelineDraw } from "./timeline-draw";
 import {
   ArrowDown,
   ArrowLeft,
@@ -99,6 +101,8 @@ export default function App() {
     document.documentElement.dataset.theme = mode;
   }, [mode]);
   useEffect(() => initScrollReveal(), []);
+  useEffect(() => initScrollWords(), []);
+  useEffect(() => initTimelineDraw(), []);
   const toggleTheme = (event: React.MouseEvent<HTMLButtonElement>) => {
     const next = mode === "dark" ? "light" : "dark";
     revealThemeFromButton(event.currentTarget, next, () => setTheme(next));
@@ -111,9 +115,9 @@ export default function App() {
   }, [c.seo]);
   const heading = (title: string, accent: string) => (
     <h2>
-      {title}
+      <ScrollWords text={title} />
       <br />
-      <span>{accent}</span>
+      <span><ScrollWords text={accent} /></span>
     </h2>
   );
   const sections: Record<string, React.ReactNode> = {
@@ -344,9 +348,9 @@ export default function App() {
               {c.contact.label}
             </span>
             <h2 className="preserve-lines">
-              {c.contact.title}
+              <ScrollWords text={c.contact.title} />
               <br />
-              <span>{c.contact.accent}</span>
+              <span><ScrollWords text={c.contact.accent} /></span>
             </h2>
             <p>{c.contact.description}</p>
             <a className="email-link" href={`mailto:${c.identity.email}`}>

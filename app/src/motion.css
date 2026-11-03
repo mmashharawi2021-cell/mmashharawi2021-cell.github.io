@@ -85,3 +85,69 @@
     transition: opacity 0.2s;
   }
 }
+
+/* Heading words light up with scroll (see ScrollWords.tsx). */
+.scroll-word {
+  font-style: normal;
+}
+.words-ready .scroll-word {
+  opacity: 0.18;
+  transition: opacity 0.35s ease;
+}
+.words-ready .scroll-word.is-lit {
+  opacity: 1;
+}
+
+/* Career timeline line drawn with scroll (see timeline-draw.ts). */
+.experience-list {
+  position: relative;
+  --draw: 0;
+}
+.experience-list::before,
+.experience-list::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline-start: 6px;
+  width: 2px;
+  border-radius: 2px;
+}
+.experience-list::before {
+  background: var(--line);
+}
+.experience-list::after {
+  background: linear-gradient(to bottom, var(--accent), #8b5cf6);
+  transform: scaleY(var(--draw));
+  transform-origin: top;
+}
+.experience-list > li {
+  position: relative;
+  padding-inline-start: 34px;
+}
+.experience-list > li::before {
+  content: "";
+  position: absolute;
+  top: 24px;
+  inset-inline-start: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--line);
+  z-index: 1;
+  transition:
+    border-color 0.3s,
+    background 0.3s,
+    box-shadow 0.3s;
+}
+.experience-list > li.is-passed::before {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .words-ready .scroll-word {
+    opacity: 1;
+  }
+}
