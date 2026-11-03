@@ -23,6 +23,9 @@
   direction: ltr;
   text-align: right;
 }
+.stats-grid .number-ticker {
+  display: inline-block;
+}
 .stats-grid dd .stat-suffix {
   color: var(--accent);
 }

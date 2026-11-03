@@ -11,7 +11,7 @@ import { TechBadge } from "./TechBadge";
 import { FloatingWords } from "./FloatingWords";
 import { TypingAnimation } from "./TypingAnimation";
 import { DiaTextReveal } from "./DiaTextReveal";
-import { CountUp } from "./CountUp";
+import { NumberTicker } from "./NumberTicker";
 import {
   ArrowDown,
   ArrowLeft,
@@ -209,7 +209,7 @@ export default function App() {
             <div key={item.label}>
               <dt>{item.label}</dt>
               <dd>
-                <CountUp value={item.value} />
+                <NumberTicker value={item.value} />
                 {item.suffix && <span className="stat-suffix">{item.suffix}</span>}
               </dd>
             </div>

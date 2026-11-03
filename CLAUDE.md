@@ -60,7 +60,7 @@
 2. **الهيدر:** شعار M (`header-signature.css`)، والتنقل، وزر تبديل الوضع بانكشاف دائري (`theme-reveal.ts`)، وزر "لنتحدث"، وقائمة الجوال، وشريط تنقل سفلي على الجوال.
 3. **`home`:** كلمات تقنية عائمة (`FloatingWords.tsx`)، والاسم بتدرج متحرك (`name-flow`)، وصندوق الكتابة المتكررة (`TypingAnimation.tsx`، العبارات في `hero.badgeWords`)، والعنوان، والأزرار، وشعارات جهات العمل (`WorkAvatarCircles.tsx`)، ونافذة معاينة مشروع UN Field.
 4. **`expertise`:** شريط التقنيات (`TechBadge.tsx` بأيقونات simple-icons).
-4b. **`stats`:** أرقام الإنجاز (`CountUp.tsx` و `stats.css`)، والبيانات في `stats` داخل `default.json`. عدّاد يعمل مرة واحدة عند الظهور.
+4b. **`stats`:** أرقام الإنجاز (`NumberTicker.tsx`، وهو منقول من Magic UI NumberTicker بنفس النابض damping 60 و stiffness 100، و `stats.css`)، والبيانات في `stats` داخل `default.json`.
 5. **`projects`:** `ProjectsSection.tsx` مع فلاتر وبطاقات و `CardGlow.tsx` (توهج بلون الصورة) و `HoverPill.tsx` ونافذة تفاصيل `ProjectDialog.tsx`، والصور عبر `ProgressiveImage.tsx`.
 6. **`services`:** 6 بطاقات خدمات.
 7. **`skills`:** قائمة مهارات ونبذة.
