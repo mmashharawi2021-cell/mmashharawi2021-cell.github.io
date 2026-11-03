@@ -52,6 +52,10 @@
       "visible": true
     },
     {
+      "id": "stats",
+      "visible": true
+    },
+    {
       "id": "projects",
       "visible": true
     },
@@ -103,6 +107,15 @@
     "role": "GIS · Web · Dashboards",
     "caption": "صُمّمت لتخدم العمل. وبُنيت لتُبسّطه.",
     "scrollLabel": "اكتشف المزيد"
+  },
+  "stats": {
+    "label": "أرقام من الميدان",
+    "items": [
+      { "value": 6, "suffix": "+", "label": "سنوات خبرة في GIS والبيانات وتطوير الأنظمة" },
+      { "value": 20000, "suffix": "+", "label": "وحدة سكنية تمت مراجعتها وتدقيق بياناتها" },
+      { "value": 1000, "suffix": "+", "label": "وحدة سكنية حُصرت ميدانيًا في مناطق الشمال" },
+      { "value": 7, "suffix": "", "label": "جهات ومؤسسات عملت معها" }
+    ]
   },
   "expertise": {
     "label": "تقنيات أعمل بها",

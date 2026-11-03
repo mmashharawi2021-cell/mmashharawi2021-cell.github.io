@@ -11,6 +11,7 @@ import { TechBadge } from "./TechBadge";
 import { FloatingWords } from "./FloatingWords";
 import { TypingAnimation } from "./TypingAnimation";
 import { DiaTextReveal } from "./DiaTextReveal";
+import { CountUp } from "./CountUp";
 import {
   ArrowDown,
   ArrowLeft,
@@ -198,6 +199,22 @@ export default function App() {
           <ArrowDown size={16} />
           {c.hero.scrollLabel}
         </a>
+      </section>
+    ),
+    stats: (
+      <section className="container stats-section" aria-labelledby="stats-label">
+        <span className="eyebrow" id="stats-label">{c.stats.label}</span>
+        <dl className="stats-grid">
+          {c.stats.items.map((item) => (
+            <div key={item.label}>
+              <dt>{item.label}</dt>
+              <dd>
+                <CountUp value={item.value} />
+                {item.suffix && <span className="stat-suffix">{item.suffix}</span>}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </section>
     ),
     expertise: (
