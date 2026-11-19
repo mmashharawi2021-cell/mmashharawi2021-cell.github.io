@@ -4,6 +4,8 @@
   "version": "1.1.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/assemble-portfolio-video.mjs",
+    "prebuild": "node scripts/assemble-portfolio-video.mjs",
     "dev": "vite --host 0.0.0.0",
     "build": "tsc -b && vite build && node scripts/build-cv-pdf.mjs",
     "preview": "vite preview --host 0.0.0.0"

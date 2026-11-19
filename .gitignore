@@ -1,4 +1,4 @@
-﻿node_modules/
+node_modules/
 docs/
 .secrets/
 runtime/
@@ -6,3 +6,4 @@ runtime/
 .env.*
 !.env.example
 *.tsbuildinfo
+app/public/assets/damage-assessment.mp4
