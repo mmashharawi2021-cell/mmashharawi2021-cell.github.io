@@ -181,7 +181,7 @@ export default function App() {
               <span>{c.hero.windowLabel}</span>
               <Layers size={15} />
             </div>
-            <FeaturedPortfolioVideo poster={assetUrl(c.projects[0].image)} />
+            <FeaturedPortfolioVideo poster={import.meta.env.BASE_URL + "assets/damage-assessment-poster.webp"} />
           </div>
           <div className="glass-note spatial-note">
             <span className="note-icon">

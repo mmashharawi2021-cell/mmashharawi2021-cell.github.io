@@ -247,7 +247,7 @@ try {
         await hero.waitFor();
         // Playwright's bundled Chromium may omit H.264: the component correctly
         // switches to its Facebook fallback on unsupported media codecs.
-        assert.equal(await hero.locator("video, iframe").count(), 1);
+        assert.equal(await hero.locator("video, .featured-portfolio-video__fallback").count(), 1);
         const sourceResponse = await page.request.head(base + "assets/damage-assessment.mp4");
         assert.equal(sourceResponse.status(), 200, "Optimized local video must be published");
         const headline = hero.locator(".featured-portfolio-video__title");
@@ -505,7 +505,7 @@ try {
       const player = page.locator(".featured-portfolio-video");
       assert.equal(await player.count(), 1);
       const hasAudioControl = await player.getByRole("button", { name: "تشغيل صوت الفيديو" }).count();
-      const hasCodecFallback = await player.locator('iframe[title*="Facebook"]').count();
+      const hasCodecFallback = await player.locator(".featured-portfolio-video__fallback").count();
       assert.ok(hasAudioControl === 1 || hasCodecFallback === 1,
         "Video must offer a sound toggle or a supported-player fallback");
       assert.equal(await page.locator(".project-card img[loading='lazy']").count(), 5);

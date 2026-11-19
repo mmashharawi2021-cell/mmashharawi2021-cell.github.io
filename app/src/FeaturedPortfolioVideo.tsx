@@ -49,15 +49,24 @@ export default function FeaturedPortfolioVideo({ poster }: { poster: string }) {
     <div className="featured-portfolio-video">
       <div className="featured-portfolio-video__viewport">
         {useFacebook ? (
-          <iframe
-            className="featured-portfolio-video__media"
-            src={EMBED_URL}
-            title="فيديو نظم المعلومات الجغرافية في توثيق أضرار المباني على Facebook"
-            allow="autoplay; encrypted-media; picture-in-picture"
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="strict-origin-when-cross-origin"
-          />
+          <div className="featured-portfolio-video__fallback">
+            <img
+              src={poster}
+              alt="معاينة الفيديو الخاص بتوثيق أضرار المباني"
+              className="featured-portfolio-video__media"
+              loading="lazy"
+              decoding="async"
+            />
+            <a
+              className="featured-portfolio-video__fallback-link"
+              href={ORIGINAL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ExternalLink size={17} aria-hidden="true" />
+              مشاهدة الفيديو على Facebook
+            </a>
+          </div>
         ) : (
           <>
             <video
@@ -97,7 +106,7 @@ export default function FeaturedPortfolioVideo({ poster }: { poster: string }) {
           مشاهدة الفيديو الأصلي على Facebook
         </a>
       </div>
-      {useFacebook && <span className="featured-portfolio-video__hint">يمكن التحكم بالصوت من مشغّل Facebook</span>}
+      {useFacebook && <span className="featured-portfolio-video__hint">تعذّر تشغيل الفيديو في هذا المتصفح، ويمكن مشاهدته على Facebook</span>}
     </div>
   );
 }
