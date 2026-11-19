@@ -6,6 +6,7 @@ import "./fonts.css";
 import "./styles.css";
 import "./work-avatar-circles.css";
 import "./studio.css";
+import "./featured-portfolio-video.css";
 import "./projects.css";
 import "./content/content.css";
 import "./brand-intro.css";
