@@ -55,3 +55,9 @@ test("release: dedicated CV entry, source images and downloadable PDF", () => {
   assert.ok(pdf.length > 3000, "CV PDF should contain professional history");
   assert.match(pdf.toString("ascii"), /%%EOF/);
 });
+
+test("release: optimized hero video copied completely for streaming playback", () => {
+  const video = readFileSync(resolve(builtRoot, "assets/damage-assessment.mp4"));
+  assert.equal(video.length, 10296021, "Missing or truncated optimized video");
+  assert.equal(video.toString("ascii", 4, 8), "ftyp", "Expected MP4 container");
+});

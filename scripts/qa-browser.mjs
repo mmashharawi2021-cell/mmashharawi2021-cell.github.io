@@ -240,16 +240,28 @@ try {
   });
 
   for (const [width, height] of [[320, 700], [390, 844], [768, 1024], [1280, 800]]) {
-    await check("Responsive & first-project image: " + width, async () => {
+    await check("Responsive & optimized hero video: " + width, async () => {
       const { context, page, errors } = await launchViewport(width, height);
       try {
-        const hero = page.locator(".hero-project-button img");
-        assert.equal(await hero.getAttribute("alt"), "UN Field", "Hero must display UN Field first");
-        const mainImg = await hero.evaluate(async (image) => {
-          try { await image.decode(); } catch {}
-          return { loaded: image.complete && image.naturalWidth > 0, src: image.currentSrc };
-        });
-        assert.ok(mainImg.loaded, "UN Field hero image failed to load: " + mainImg.src);
+        const hero = page.locator(".featured-portfolio-video video");
+        await hero.waitFor({ state: "attached" });
+        const attributes = await hero.evaluate(video => ({
+          src: video.getAttribute("src"),
+          autoplay: video.autoplay,
+          muted: video.muted,
+          loop: video.loop,
+          playsInline: video.playsInline,
+        }));
+        assert.match(attributes.src, /\/assets\/damage-assessment\.mp4$/);
+        assert.equal(attributes.autoplay, true);
+        assert.equal(attributes.muted, true);
+        assert.equal(attributes.loop, true);
+        assert.equal(attributes.playsInline, true);
+        const sourceResponse = await page.request.head(base + "assets/damage-assessment.mp4");
+        assert.equal(sourceResponse.status(), 200, "Local optimized video must exist");
+        const facebookLink = page.locator(".featured-portfolio-video__footer a");
+        assert.equal(await facebookLink.getAttribute("href"), "https://www.facebook.com/share/v/1Qs6f1TQYa/");
+        assert.equal(await facebookLink.getAttribute("target"), "_blank");
         const first = page.locator(".project-card").first();
         assert.match(await first.innerText(), /UN Field/);
         assert.equal(await page.locator(".project-card").count(), 5);
@@ -488,9 +500,12 @@ try {
       await page.keyboard.press("Enter");
       assert.equal(await page.evaluate(() => document.activeElement?.id), "main",
         "Skip link should move keyboard focus to the main landmark");
-      const heroImage = page.locator(".hero-project-button img");
-      assert.equal(await heroImage.getAttribute("fetchpriority"), "high");
-      assert.equal(await heroImage.getAttribute("loading"), "eager");
+      const heroVideo = page.locator(".featured-portfolio-video video");
+      assert.equal(await heroVideo.getAttribute("autoplay"), "");
+      assert.equal(await heroVideo.getAttribute("loop"), "");
+      assert.equal(await heroVideo.getAttribute("playsinline"), "");
+      assert.equal(await heroVideo.evaluate(video => video.muted), true);
+      assert.equal(await page.getByRole("button", { name: "تشغيل صوت الفيديو" }).count(), 1);
       assert.equal(await page.locator(".project-card img[loading='lazy']").count(), 5);
       assert.deepEqual(errors, []);
     } finally { await context.close(); }
