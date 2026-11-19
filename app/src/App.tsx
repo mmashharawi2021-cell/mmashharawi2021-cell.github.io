@@ -1,5 +1,6 @@
 ﻿import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import ReferenceIntro from "./ReferenceIntro";
+import FeaturedPortfolioVideo from "./FeaturedPortfolioVideo";
 import WorkAvatarCircles from "./WorkAvatarCircles";
 import { revealThemeFromButton } from "./theme-reveal";
 import { approvedLogoSrc } from "./brandAsset";
@@ -91,7 +92,6 @@ export default function App() {
     setNavLine(link ? { x: link.offsetLeft, w: link.offsetWidth } : null);
   }, [activeSection, menuOpen]);
   const [selected, setSelected] = useState<Project | null>(null);
-  const first = c.projects[0];
   const socialLinks = [
     { key: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/mohanad-elmashharawi-a4bb23148", Icon: Linkedin },
     { key: "facebook", label: "Facebook", href: "https://www.facebook.com/share/18ytFS2SDE/", Icon: Facebook },
@@ -181,23 +181,7 @@ export default function App() {
               <span>{c.hero.windowLabel}</span>
               <Layers size={15} />
             </div>
-            <button
-              className="hero-project-button"
-              onClick={() => setSelected(first)}
-              aria-label={`${c.hero.openLabel}: ${first.title}`}
-            >
-              <ProgressiveImage
-                key={first.image}
-                src={assetUrl(first.image)}
-                sizes="(max-width: 800px) 85vw, 787px"
-                alt={first.title}
-                eager
-              />
-              <span className="hero-project-open">
-                {c.hero.openLabel}
-                <ArrowUpLeft size={17} />
-              </span>
-            </button>
+            <FeaturedPortfolioVideo poster={assetUrl(c.projects[0].image)} />
           </div>
           <div className="glass-note spatial-note">
             <span className="note-icon">
