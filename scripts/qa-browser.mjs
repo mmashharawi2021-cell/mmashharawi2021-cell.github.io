@@ -250,9 +250,20 @@ try {
         assert.equal(await hero.locator("video, iframe").count(), 1);
         const sourceResponse = await page.request.head(base + "assets/damage-assessment.mp4");
         assert.equal(sourceResponse.status(), 200, "Optimized local video must be published");
+        const headline = hero.locator(".featured-portfolio-video__title");
+        assert.equal(await headline.textContent(), "نظم المعلومات الجغرافية في توثيق أضرار المباني");
+        assert.match(await hero.locator(".featured-portfolio-video__summary").innerText(), /ضمن فريق العمل/);
+        assert.equal(await page.locator(".spatial-note strong").innerText(), "بيانات دقيقة، قرارات أفضل");
+        assert.match(await page.locator(".spatial-note small").innerText(), /حلول جغرافية لدعم حصر الأضرار وإعادة الإعمار/);
+        const soundControl = hero.getByRole("button", { name: "تشغيل صوت الفيديو" });
+        if (await soundControl.count()) {
+          const { width: soundWidth, height: soundHeight } = await soundControl.boundingBox();
+          assert.ok(soundWidth <= 48 && soundHeight >= 44, "Sound button must remain a compact, touch-friendly icon");
+        }
         const facebookLink = hero.locator(".featured-portfolio-video__footer a");
         assert.equal(await facebookLink.getAttribute("href"), "https://www.facebook.com/share/v/1Qs6f1TQYa/");
         assert.equal(await facebookLink.getAttribute("target"), "_blank");
+        assert.match(await facebookLink.innerText(), /مشاهدة الفيديو الأصلي على Facebook/);
         const first = page.locator(".project-card").first();
         assert.match(await first.innerText(), /UN Field/);
         assert.equal(await page.locator(".project-card").count(), 5);

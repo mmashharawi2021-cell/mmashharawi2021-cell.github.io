@@ -52,7 +52,7 @@ export default function FeaturedPortfolioVideo({ poster }: { poster: string }) {
           <iframe
             className="featured-portfolio-video__media"
             src={EMBED_URL}
-            title="فيديو حصر الأضرار المتكامل على Facebook"
+            title="فيديو نظم المعلومات الجغرافية في توثيق أضرار المباني على Facebook"
             allow="autoplay; encrypted-media; picture-in-picture"
             allowFullScreen
             loading="lazy"
@@ -70,7 +70,7 @@ export default function FeaturedPortfolioVideo({ poster }: { poster: string }) {
               playsInline
               preload="metadata"
               poster={poster}
-              aria-label="فيديو حصر الأضرار المتكامل"
+              aria-label="نظم المعلومات الجغرافية في توثيق أضرار المباني"
               onError={() => setUseFacebook(true)}
               onPlaying={() => setPlaying(true)}
               onPause={() => setPlaying(false)}
@@ -83,16 +83,18 @@ export default function FeaturedPortfolioVideo({ poster }: { poster: string }) {
               aria-pressed={!isMuted}
             >
               {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-              <span>{isMuted ? "تشغيل الصوت" : "إيقاف الصوت"}</span>
+              <span className="sr-only">{isMuted ? "تشغيل الصوت" : "إيقاف الصوت"}</span>
             </button>
             {!playing && <span className="featured-portfolio-video__waiting" aria-live="polite">معاينة الفيديو</span>}
           </>
         )}
       </div>
       <div className="featured-portfolio-video__footer">
-        <span>مشروع حصر الأضرار المتكامل</span>
+        <h3 className="featured-portfolio-video__title">نظم المعلومات الجغرافية في توثيق أضرار المباني</h3>
+        <p className="featured-portfolio-video__summary">جانب من تجربتي في توثيق الأضرار ميدانيًا وإدارة البيانات الجغرافية ضمن فريق العمل</p>
         <a href={ORIGINAL_URL} target="_blank" rel="noopener noreferrer">
-          الفيديو الأصلي تجده هنا <ExternalLink size={16} aria-hidden="true" />
+          <ExternalLink size={15} aria-hidden="true" />
+          مشاهدة الفيديو الأصلي على Facebook
         </a>
       </div>
       {useFacebook && <span className="featured-portfolio-video__hint">يمكن التحكم بالصوت من مشغّل Facebook</span>}
