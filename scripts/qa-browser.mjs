@@ -255,6 +255,29 @@ try {
         assert.match(await hero.locator(".featured-portfolio-video__summary").innerText(), /ضمن فريق العمل/);
         assert.equal(await page.locator(".spatial-note strong").innerText(), "بيانات دقيقة، قرارات أفضل");
         assert.match(await page.locator(".spatial-note small").innerText(), /حلول جغرافية لدعم حصر الأضرار وإعادة الإعمار/);
+        if (width <= 850) {
+          const layout = await page.evaluate(() => {
+            const note = document.querySelector(".studio-visual .spatial-note");
+            const video = document.querySelector(".featured-portfolio-video__viewport");
+            const card = document.querySelector(".studio-visual .product-window");
+            const identity = document.querySelector(".studio-visual .developer-note");
+            const toolbar = document.querySelector(".studio-visual .window-toolbar");
+            return {
+              noteBottom: note.getBoundingClientRect().bottom,
+              videoTop: video.getBoundingClientRect().top,
+              cardBottom: card.getBoundingClientRect().bottom,
+              identityTop: identity.getBoundingClientRect().top,
+              toolbarDisplay: getComputedStyle(toolbar).display,
+            };
+          });
+          assert.ok(layout.noteBottom + 6 <= layout.videoTop,
+            "Information card must sit above mobile video without overlap: " + JSON.stringify(layout));
+          assert.ok(layout.identityTop >= layout.cardBottom,
+            "Identity badge must sit below mobile video card: " + JSON.stringify(layout));
+          if (width <= 600) {
+            assert.equal(layout.toolbarDisplay, "none", "Mobile must not show desktop window chrome");
+          }
+        }
         const soundControl = hero.getByRole("button", { name: "تشغيل صوت الفيديو" });
         if (await soundControl.count()) {
           const { width: soundWidth, height: soundHeight } = await soundControl.boundingBox();
