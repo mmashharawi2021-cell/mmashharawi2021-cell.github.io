@@ -4,7 +4,7 @@ import { ExternalLink, Volume2, VolumeX } from "lucide-react";
 const ORIGINAL_URL = "https://www.facebook.com/share/v/1Qs6f1TQYa/";
 const EMBED_URL = "https://www.facebook.com/plugins/video.php?href=" + encodeURIComponent(ORIGINAL_URL) + "&show_text=false&autoplay=true&mute=true&allowfullscreen=true";
 
-export default function FeaturedPortfolioVideo() {
+export default function FeaturedPortfolioVideo({ poster }: { poster: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [useFacebook, setUseFacebook] = useState(false);
@@ -69,7 +69,7 @@ export default function FeaturedPortfolioVideo() {
               loop
               playsInline
               preload="metadata"
-              poster={import.meta.env.BASE_URL + "assets/portfolio-hero.webp"}
+              poster={poster}
               aria-label="فيديو حصر الأضرار المتكامل"
               onError={() => setUseFacebook(true)}
               onPlaying={() => setPlaying(true)}
